@@ -1,0 +1,228 @@
+
+/* estilos para las tablas */
+.cantidad-registros .form-label {
+    margin-bottom: 0px;
+    font-weight: 500;
+  }
+  
+  @media (max-width: 766.98px) {
+    .cantidad-registros {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 16px;
+      margin-bottom: 16px;
+    }
+  }
+  
+  @media (min-width: 766.99px) {
+    .cantidad-registros {
+      display: flex;
+      justify-content: start;
+      align-items: center;
+      margin-top: 16px;
+      margin-bottom: 16px;
+    }
+  }
+  
+  ul.pagination li.page-item.disabled {
+  background-color: #D0D0D0 !important;
+  border-radius: 8px !important;
+  }
+  
+  ul.pagination li.page-item.disabled a.page-link{
+  color: #FFFFFF;
+  border-radius: 8px !important;
+  }
+  
+  ul.pagination li {
+  margin-right: 12px;
+  }
+  
+  ul.pagination li a {
+  border: none !important;
+  color: #242C4F;
+  font-weight: 600;
+  }
+  
+  ul.pagination li.page-item.active a.page-link{
+  background-color: #4C4C4C;
+  border-radius: 8px;
+  }
+  
+  .text-registros p {
+  font-size: 12px;
+  color: #4C4C4C;
+  text-align: start;
+  margin-bottom: 16px;
+  margin-top: 8px;
+  }
+  
+  .text-ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 300px !important;
+  }
+  
+  /* Estilos para el tooltip */
+  .custom-tooltip .tooltip-inner {
+  font-family: "Montserrat", sans-serif; /* Cambia la familia de fuentes según tus preferencias */
+  font-size: 10px; /* Cambia el tamaño de fuente según tus preferencias */
+  padding: 12px 16px;
+  max-width: 220px !important;
+  /* Otros estilos que desees aplicar */
+  }
+  
+  .custom-tooltip {
+  --bs-tooltip-bg: #262834;
+  --bs-tooltip-color: #FFFFFF;
+  }
+  
+  /*tabla procesos SIAF*/
+  .tabla-procesos-siaf {
+    padding: 0px 12px !important;
+  }
+  
+  .tabla-procesos-siaf .row {
+    background-color: #242C4F;
+    border-radius: 8px 8px 0px 0px;
+    height: 45px;
+  }
+  
+  table {
+    font-family: "Montserrat", sans-serif;
+    margin: 0px 12px !important;
+  }
+  
+  table.table.table-bordered.table-striped {
+    max-width: calc(100% - 24px) !important;
+  }
+
+  table.table.table-bordered {
+    max-width: calc(100% - 24px) !important;
+  }
+
+  table.tabla-trimestral {
+    max-width: calc(100% - 24px) !important;
+  }
+
+  .tabla-procesos-siaf h5 {
+    color: #FFFFFF;
+    font-family: "Montserrat", serif;
+    font-weight: 700;
+  }
+  
+  .tabla-procesos-siaf span.me-2.iconos {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  th.numberID  {
+    background-color: #3E5A7E;
+    text-align: center;
+    padding: 8px 19px 8px 19px;
+  }
+  
+  th.numberID span {
+    color: #FFFFFF;
+    font-weight: 700;
+    font-size: 20px;
+    text-align: center;
+  }
+  
+  tr.title-col th {
+    vertical-align: middle;
+    text-align: center;
+    color: #333333;
+  }
+  
+  th.total-monto {
+    text-align: start;
+  }
+  
+  tr.fila-total th {
+    background-color: #D4D4D4;
+    color: #333333;
+  }
+
+  .hidden-column {
+    display: none;
+  }
+
+  table#mainTable {
+    margin: 20px 0;
+    border-collapse: collapse;
+    width: 100%;
+  }
+  #mainTable th, #mainTable td {
+    padding: 8px;
+    text-align: left;
+  }
+  #mainTable tbody tr {
+    transition: box-shadow 0.3s, border 0.3s;
+  }
+  #mainTable tbody tr.fila-total {
+    background-color: #D4D4D4; /* Color fijo para el total */
+    cursor: default; /* Sin efecto de puntero */
+  }
+  #mainTable tbody tr.fila-total:hover {
+    background-color: #D4D4D4 !important; /* Sin efecto de hover */
+    border: 1px solid #E2E2E2 !important;
+    cursor: default !important;
+  }
+  #mainTable tbody tr:not(.selected):hover {
+    background-color: #3193371A !important; /* Verde más claro al hacer hover */
+    border: 2px solid #319337;
+    cursor: pointer;
+  }
+  #mainTable tbody tr.selected {
+    border: 2px solid #319337;
+    background-color: #3193371A !important;
+  }
+  #detailsContainer {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    padding: 32px 95px;
+    border: 1px solid #E2E2E2;
+    border-radius: 5px;
+    background-color: #FFFFFF;
+    width: 100% !important;
+  }
+#detailsContainer h3 {
+  font-family: "Montserrat", sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  text-align: center;
+}
+table.tabla-trimestral {
+  width: 100%;
+  border-collapse: collapse;
+}
+table.tabla-trimestral th, td {
+  border: 1px solid #ccc;
+  padding: 8px;
+  text-align: left;
+}
+table.tabla-trimestral .hidden-row {
+  display: none;
+}
+table.tabla-trimestral .rotate {
+  transform: rotate(180deg);
+  transition: transform 0.3s ease;
+}
+table.tabla-trimestral .arrow {
+  cursor: pointer;
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+table.tabla-trimestral thead th {
+ text-align: center;
+}
+
+.active-row {
+  background-color: #f0f8ff; /* Cambia este color según tu diseño */
+}

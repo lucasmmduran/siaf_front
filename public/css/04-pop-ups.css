@@ -1,0 +1,170 @@
+
+/* ESTILOS MODALES */
+/* MODAL */
+
+.modal-header {
+    padding: 24px 24px 4px 24px;
+    border: none;
+  }
+  
+  .modal-body {
+    padding: 16px 24px 16px 24px;
+    border: none;
+    font-family: "Montserrat", sans-serif;
+    font-size: 14px;
+  }
+  
+  .modal-footer {
+    padding: 0px 24px 16px 24px;
+    border: none;
+  }
+  
+  .img-icono {
+    width: 24px;
+    height: 24px;
+    margin-right: 12px;
+  }
+  
+  
+  /* ERROR ROJO */
+  .alertaRoja {
+    background-color: #14182C;
+    border-radius: 8px;
+    border-left: 8px solid #C62828;
+  }
+  .alertaRoja .errorTituloRojo {
+    color: #FFFFFF;
+    font-weight: 700;
+    font-family: "Lora", serif;
+    font-size: 14px;
+    padding-top: 0px;
+  }
+  .alertaRoja .errorDescRojo {
+    padding-top: 8px;
+    font-size: 12px;
+    color: #FFFFFF;
+  }
+  .alertaRoja .errorDescRojo a {
+    color: #FFFFFF;
+    font-weight: 600;
+    font-size: 12px;
+  }
+  .alertaRoja .errorDescRojo a:focus {
+    text-decoration: underline;
+  }
+  
+  /* ALERTA AMARILLO */
+  .alertaAmarilla {
+    background-color: #14182C;
+    border-radius: 8px;
+    border-left: 8px solid #E7BA61;
+  }
+  .alertaAmarilla .errorTituloAmarillo {
+    color: #FFFFFF;
+    font-weight: 700;
+    font-family: "Lora", serif;
+    font-size: 14px;
+    padding-top: 0px;
+  }
+  .alertaAmarilla .errorDescAmarillo {
+    padding-top: 8px;
+    font-size: 12px;
+    color: #FFFFFF;
+  }
+  .alertaAmarilla .errorDescAmarillo a {
+    color: #FFFFFF;
+    font-weight: 600;
+    font-size: 12px;
+  }
+  .alertaAmarilla .errorDescAmarillo a:focus, .alertaAmarilla .errorDescAmarillo a:hover {
+    text-decoration: underline;
+  }
+  
+  ul.listaAmarillo li {
+    list-style: disc !important;
+    color: #FFF !important;
+    margin-left: 24px;
+    padding-bottom: 4px;
+  }
+  
+  /* ALERTA CELESTE */
+  .alertaCeleste {
+    background-color: #14182C;
+    border-radius: 8px;
+    border-left: 8px solid #3E5A7E;
+  }
+  .alertaCeleste .errorTituloCeleste {
+    color: #FFFFFF;
+    font-weight: 700;
+    font-family: "Lora", serif;
+    font-size: 14px;
+    padding-top: 0px;
+  }
+  .alertaCeleste .errorDescCeleste {
+    padding-top: 8px;
+    font-size: 12px;
+    color: #FFFFFF;
+  }
+  .alertaCeleste .errorDescCeleste a {
+    color: #FFFFFF;
+    font-weight: 600;
+    font-size: 12px;
+  }
+  .alertaCeleste .errorDescCeleste a:focus, .alertaCeleste .errorDescCeleste a:hover {
+    text-decoration: underline;
+  }
+  
+  .padAlertClose {
+    color: #FFFFFF;
+    padding: 0px;
+  }
+  
+  h5.modal-title {
+    font-weight: 700;
+    font-size: 18px;
+  }
+  
+  
+  /* ALERTA VERDE */
+  .alertaVerde {
+    background-color: #14182C;
+    border-radius: 8px;
+    border-left: 8px solid #2E7D33;
+  }
+  .alertaVerde .errorTituloVerde {
+    color: #FFFFFF;
+    font-weight: 700;
+    font-family: "Lora", serif;
+    font-size: 14px;
+    padding-top: 0px;
+  }
+  .alertaVerde .errorDescVerde {
+    padding-top: 8px;
+    font-size: 12px;
+    color: #FFFFFF;
+  }
+  .alertaVerde .errorDescVerde a {
+    color: #FFFFFF;
+    font-weight: 600;
+    font-size: 12px;
+  }
+  .alertaVerde .errorDescVerde a:focus {
+    text-decoration: underline;
+  }
+  
+  
+  /*FIN ESTILOS MODALES*/
+
+  
+/* FILTRO LAYOUTBLACK*/
+#layoutblack {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    z-index: 10; /* Z-index del fondo */
+  }
+  
+  

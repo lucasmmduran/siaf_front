@@ -1,0 +1,408 @@
+/* HEADER */
+.header {
+    background-color: #FFFFFF;
+    border-bottom: 4px solid #E7BA61;
+  }
+  .header__img {
+    height: 48px;
+    margin-top: 8px;
+    margin-bottom: 8px;
+  }
+  .header__menuusuario__sector {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+  }
+  .header__menuusuario__sector__boton {
+    background-color: #242C4F;
+    color: #FFFFFF;
+    border-radius: 100%;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .header__menuusuario__sector__boton i {
+    position: absolute; /* Posición absoluta */
+    top: 50%; /* Coloca el botón en la mitad vertical del contenedor */
+    left: 50%; /* Coloca el botón en la mitad horizontal del contenedor */
+    transform: translate(-50%, -50%); /* Centra el botón */
+  }
+  .header__menuusuario__sector .dropdown-menu {
+    background-color: #242C4F;
+    color: #FFFFFF;
+    font-family: "Montserrat", sans-serif;
+    font-size: 14px;
+    padding: 0px;
+  }
+  .header__menuusuario__sector .dropdown-menu li {
+    padding: 16px;
+    border-top: 1px solid #FFFFFF;
+  }
+  .header__menuusuario__sector .dropdown-menu li a {
+    color: #FFFFFF;
+  }
+  
+  .header__menuusuario__sector .dropdown-menu li a i {
+    padding-right: 8px;
+  }
+  .header__menuusuario__sector .dropdown-menu li:hover {
+    background-color: #14182C;
+  }
+  .header__menuusuario__sector .dropdown-menu li:last-child:hover {
+    border-radius: 0px 0px 8px 8px;
+  }
+  .header__menuusuario__sector .dropdown-menu .datosUsuario {
+    border-top: none;
+    background-color: #14182C;
+    border-radius: 8px 8px 0px 0px;
+  }
+  .header__menuusuario__sector .dropdown-menu .datosUsuario--title {
+    font-size: 13px;
+    font-weight: 700;
+  }
+  .header__menuusuario__sector .dropdown-menu .datosUsuario--subtitle {
+    font-size: 12px;
+  }
+  .header__nombrelogomenu h4 {
+    font-weight: 700;
+    font-size: 24px;
+    color: #242C4F;
+  }
+  .header__nombrelogomenu__sector {
+    height: 64px;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+  }
+  .header__nombrelogomenu__sector__boton {
+    background-color: #242C4F;
+    color: #FFFFFF;
+    border-radius: 100%;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .header__nombrelogomenu__sector__boton i {
+    position: absolute; /* Posición absoluta */
+    top: 50%; /* Coloca el botón en la mitad vertical del contenedor */
+    left: 50%; /* Coloca el botón en la mitad horizontal del contenedor */
+    transform: translate(-50%, -50%); /* Centra el botón */
+  }
+  /* FIN HEADER*/
+
+  /* MENU USUARIO */
+
+.menus-usuario {
+    position: relative;
+  }
+  
+  .btn-user:focus {
+    border: none !important;
+  }
+  
+  .dropdown-menu-user {
+    background-color: #242C4F;
+    font-family: "Montserrat", sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: #FFFFFF;
+    border-top: 8px solid #14182C;
+    border-radius: 8px;
+    padding-top: 0px;
+    right: 0; /* Posiciónalo al borde derecho del contenedor */
+    left: auto; /* Asegúrate de desactivar cualquier alineación izquierda */
+    transform: translateX(0); /* Resetea cualquier transformación por defecto */
+    width: 272px;
+  }
+  
+  .dropdown-menu-user li {
+    border-bottom: 1px solid #FFFFFF;
+  }
+  
+  .datosUsuario {
+    padding: 16px;
+    padding-top: 8px;
+    background-color: #14182C;
+    border-bottom: 1px solid #FFFFFF;
+  }
+  
+  .datosUsuario .datosUsuario--title {
+    font-size: 13px;
+    font-weight: 700;
+  }
+  
+  .datosUsuario .datosUsuario--subtitle {
+    font-weight: 400;
+    font-size: 12px;
+  }
+  
+  .datosUsuario .datosUsuario--subtitle a {
+    color: #FFFFFF;
+  }
+  
+  .datosUsuario .datosUsuario--subtitle a:hover {
+    text-decoration: underline;
+  }
+  
+  .icons-menu-usuario {
+    padding-right: 8px;
+  }
+  
+  .dropdown-item-user {
+    padding: 12px 16px;
+  }
+  
+  .dropdown-item-user:hover {
+    background-color: #14182C;
+  }
+  
+  .dropdown-item-user a {
+    color: #FFFFFF;
+    font-weight: 400;
+    font-size: 14px;
+  }
+  
+  .menu-usuario-btn-desplegable {
+    padding: 0px;
+  }
+  
+  .menu-usuario-btn-desplegable .accordion-button.collapsed {
+    background-color: #242C4F;
+    color: #FFFFFF;
+    padding: 12px 16px;
+    font-size: 14px;
+  }
+  
+  .menu-usuario-btn-desplegable .accordion-button.collapsed:hover {
+    background-color: #14182C;
+  }
+  
+  .menu-usuario-btn-desplegable .accordion-collapse.collapse {
+    background-color: #242C4F;
+  }
+  
+  .menu-usuario-btn-desplegable .accordion-button:not(.collapsed) {
+    color: #242C4F !important;
+    background-color: #D6D6D6 !important;
+    box-shadow: none !important;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 12px 16px;
+  }
+  
+  .dropdown-subitem-user {
+    color: #FFFFFF;
+    font-size: 14px;
+    padding: 12px 16px;
+    border-bottom: 1px solid #FFFFFF;
+    background-color: #242C4F;
+  }
+  
+  .dropdown-subitem-user:first-child {
+    border-top: 1px solid #FFFFFF;
+  }
+  
+  .dropdown-subitem-user:last-child {
+    color: #FFFFFF;
+    font-size: 14px;
+    padding: 12px 16px;
+    border-bottom: none;
+  }
+  
+  .dropdown-subitem-user:hover {
+    background-color: #14182C;
+    color: #FFFFFF;
+  }
+  
+  .dropdown-subitem-user:active, .dropdown-subitem-user:focus {
+    color: #242C4F;
+    font-weight: 600;
+    font-size: 14px;
+    padding: 12px 16px;
+    border-bottom: 1px solid #242C4F;
+    background-color: #D6D6D6;
+  }
+  
+  .dropdown-subitem-user:last-child:active, .dropdown-subitem-user:last-child:focus {
+    border-bottom: none;
+  }
+  
+  .dropdown-subitem-user:first-child:active, .dropdown-subitem-user:first-child:focus {
+    border-top: 1px solid #242C4F;
+  }
+  
+  .menu-usuario-btn-desplegable .accordion-button::after {
+    background-image: url(../img/icon-awesome-sort-down-negativo.svg) !important;
+    background-size: auto;
+    background-position: center;
+  }
+  
+  .menu-usuario-btn-desplegable .accordion-button:not(.collapsed)::after {
+    background-image: url(../img/icon-awesome-sort-down-azul.svg) !important;
+  }
+  
+  img.img-header {
+    vertical-align: top;
+    max-width: 100%;
+    height: 100%;
+    padding-top: 24px;
+  }
+  
+  
+  
+  /*JUMBOTRON */
+  .jumbotron_banner {
+    position: relative; /* Necesario para que el ::before se posicione correctamente */
+    height: auto;
+    size-adjust: auto;
+    background-image: url("../img/img_loginhome.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  .jumbotron_banner::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.45); /* Capa de sombra negra con 35% de opacidad */
+    z-index: 1; /* Para asegurarse de que la capa esté encima de la imagen de fondo */
+  }
+  .jumbotron_banner h2, .jumbotron_banner h3, .jumbotron_banner img, .jumbotron_banner h4, .jumbotron_banner button, .jumbotron_banner .card-jumbotron {
+    position: relative; /* Necesario para que el texto esté por encima de la capa de sombra */
+    z-index: 2;
+  }
+  .jumbotron_banner .fondo-breadcrumb {
+    position: relative; /* Necesario para que el breadcrumb esté por encima de la capa de sombra */
+    z-index: 2;
+  }
+  .jumbotron_banner h2 {
+    padding-top: 36px;
+    padding-bottom: 4px;
+    font-size: 56px;
+    font-weight: 700;
+    color: #FFF;
+    font-family: "Lora", sans-serif;
+    text-shadow: 8px 6px 6px #000000ad;
+  }
+  .jumbotron_banner h3 {
+    padding-top: 4px;
+    padding-bottom: 36px;
+    font-size: 30px;
+    font-weight: 500;
+    color: #FFF;
+    font-family: "Montserrat", sans-serif;
+    text-shadow: 8px 6px 6px #000000ad;
+  }
+  .jumbotron_banner h4 {
+    padding-top: 4px;
+    padding-bottom: 32px;
+    font-size: 16px;
+    font-weight: 500;
+    color: #FFF;
+    font-family: "Montserrat", sans-serif;
+    text-shadow: 8px 6px 6px #000000ad;
+  }
+  /* Nuevas reglas CSS */
+  .fondo-breadcrumb {
+  background-color: #000000;
+  opacity: 0.4;
+  height: 44px;
+  }
+  .migas-de-pan-img {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  }
+  .migas-de-pan-img .breadcrumb {
+  margin: 0px;
+  }
+  .migas-de-pan-img .breadcrumb .breadcrumb-item {
+  padding-left: 0px;
+  }
+  .migas-de-pan-img .breadcrumb .breadcrumb-item a {
+  color: #FFFFFF;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  text-decoration: none;
+  }
+  .migas-de-pan-img .breadcrumb .breadcrumb-item a:hover {
+  text-decoration: underline;
+  }
+  .migas-de-pan-img .breadcrumb .breadcrumb-item.active {
+  color: #FFFFFF;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  padding-top: 3px;
+  }
+  .migas-de-pan-img .breadcrumb .breadcrumb-item.active::before {
+  color: #FFFFFF;
+  }
+  .migas-de-pan-img .breadcrumb .breadcrumb-item::before {
+  color: #FFFFFF;
+  }
+  .img-jumbotron {
+    padding-top: 32px;
+    padding-bottom: 24px;
+  }
+  /*FIN JUMBOTRON*/
+
+  /* ESTILOS DEL FORMULARIO DE SIAF LOCAL*/
+header.formulario-header {
+    position: fixed;
+    top: 0;
+    z-index: 1000;
+    width: 100%;
+  }
+  
+  .header-planificacion {
+    position: fixed;
+    top: 64px;
+    z-index: 999;
+    width: 100%;
+    background-color: #FFFFFF;
+  }
+  
+  .header-planificacion .col-4 {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+  
+  .header-planificacion h3 {
+    color: #242C4F;
+    font-weight: 700;
+    padding-top: 18px;
+    padding-bottom: 12px;
+    font-size: 24px;
+  }
+  
+  .header-planificacion .bg-gris4 {
+    padding-top: 8px;
+    padding-bottom: 8px;
+    margin-bottom: 16px;
+  }
+  
+  .header-planificacion span {
+    display: inline;
+    font-size: 16px;
+    font-weight: 500;
+    font-family: "Montserrat", sans-serif;
+    vertical-align: end !important;
+  }
+  
+  .header-planificacion span b {
+    vertical-align: end !important;
+  }
+  
+  .header-planificacion span .enproceso {
+    color: #3E5A7E;
+    font-weight: 700;
+  }
+  
