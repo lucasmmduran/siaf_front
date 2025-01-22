@@ -51,7 +51,7 @@
     </header>
 
     <div v-if="authStore.isAuthenticated" class="flex space-x-2">
-      <div class=" pt-52 px-4 top-50 bg-gray-100 ">
+      <div class="h-dvh pt-52 px-4 top-50 bg-gray-100 z-10">
         <Menu></Menu> 
       </div>
       <router-view />
@@ -61,7 +61,7 @@
     </div>
 
     <footer>
-      <section class="footer">
+      <section class="footer ">
         <section class="footer__nroversion">
           <div class="container">
             <div class="row">

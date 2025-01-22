@@ -362,7 +362,7 @@ header.formulario-header {
   }
   
   .header-planificacion {
-    position: fixed;
+    /* position: fixed; */
     top: 64px;
     z-index: 999;
     width: 100%;

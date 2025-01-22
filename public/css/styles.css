@@ -44,7 +44,7 @@ body {
 }
 
 main.formulario-main { 
-  padding-top: 190px; /*este padding es para mantener fijo en la pantalla el header-planificación*/
+  padding-top: 90px; /*este padding es para mantener fijo en la pantalla el header-planificación*/
 }
 
 main.carga-proceso-main {

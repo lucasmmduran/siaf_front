@@ -1,5 +1,5 @@
 <template>
-	<main class="formulario-main">
+	<main class="formulario-main w-10/12">
 
 			<section class="header-planificacion">
 				<div class="container">
