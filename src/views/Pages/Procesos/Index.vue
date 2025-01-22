@@ -4,6 +4,10 @@
 <section class="formulario-planificacion">
 		<div class="container">
 				<div class="row">
+					<div v-if="errorMessage" class="col-12">
+						<div class="alert alert-danger">{{ errorMessage }}</div>
+					</div>
+
 						<div class="col-12">
 							<div class="cantidad-registros">
 								<label for="recordsNumberB" class="form-label me-2">Mostrar</label>
@@ -41,64 +45,24 @@
 								</tr>
 							</thead>
 							<tbody>
-								<tr>
-									<th class="numberID"><span>1</span></th>
-									<td>Lorem Ipsum</td>
-									<td>XXXXXXXXXX</td>
-									<td class="text-ellipsis" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Acá va una descripción que permita identificar de que se trata el proceso y si es necesario su justificación." data-bs-custom-class="custom-tooltip">Acá va una descripción que permita identificar de que se trata el proceso y si es necesario su justificación.</td>
-									<td class="text-end">$ 12.000.000,02</td>
-									<td class="text-end">US$ 12.000,00</td>
+								<tr v-for="p in procesos" :key="p.id">
+									<th class="numberID"><span>{{ p.id }}</span></th>
+									<td>{{ p.nombre }}</td>
+									<td>{{ p.identificacion }}</td>
+									<td class="text-ellipsis" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip">
+										{{ p.descripcion }}</td>
+									<td class="text-end">{{ p.importe_total }}</td>
+									<td class="text-end">{{ p.importe_total_orig }}</td>
 									<td class="text-center"><span class="me-2 iconos"><button type="button" class="btn-icon editar" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Editar"></button></span><span class="me-2 iconos"><button type="button" class="btn-icon visualizar" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Ver detalle"></button></span></td>
 								</tr>
-								<tr>
-									<th class="numberID"><span>2</span></th>
-									<td>ONG</td>
-									<td>XXXXXXXXXX</td>
-									<td class="text-ellipsis" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Acá va una descripción que permita identificar de que se trata el proceso y si es necesario su justificación." data-bs-custom-class="custom-tooltip">Acá va una descripción que permita identificar de que se trata el proceso y si es necesario su justificación.</td>
-									<td class="text-end">$ 12.000.000,02</td>
-									<td class="text-end">US$ 12.000,00</td>
-									<td class="text-center"><span class="me-2 iconos"><button type="button" class="btn-icon editar fondo-blanco" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Editar"></button></span><span class="me-2 iconos"><button type="button" class="btn-icon visualizar fondo-blanco" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Ver detalle"></button></span></td>
-								</tr>
-								<tr>
-									<th class="numberID"><span>3</span></th>
-									<td>ONG Estado</td>
-									<td>XXXXXXXXXX</td>
-									<td class="text-ellipsis" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Acá va una descripción que permita identificar de que se trata el proceso y si es necesario su justificación." data-bs-custom-class="custom-tooltip">Acá va una descripción que permita identificar de que se trata el proceso y si es necesario su justificación.</td>
-									<td class="text-end">$ 2.358.900,56</td>
-									<td class="text-end">US$ 2.348,56</td>
-									<td class="text-center"><span class="me-2 iconos"><button type="button" class="btn-icon editar" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Editar"></button></span><span class="me-2 iconos"><button type="button" class="btn-icon visualizar" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Ver detalle"></button></span></td>
-								</tr>
-								<tr>
-									<th class="numberID"><span>4</span></th>
-									<td>Universidades</td>
-									<td>XXXXXXXXXX</td>
-									<td class="text-ellipsis" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Acá va una descripción que permita identificar de que se trata el proceso y si es necesario su justificación." data-bs-custom-class="custom-tooltip">Acá va una descripción que permita identificar de que se trata el proceso y si es necesario su justificación.</td>
-									<td class="text-end">$ 12.000.000,02</td>
-									<td class="text-end">US$ 12.000,00</td>
-									<td class="text-center"><span class="me-2 iconos"><button type="button" class="btn-icon editar fondo-blanco" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Editar"></button></span><span class="me-2 iconos"><button type="button" class="btn-icon visualizar fondo-blanco" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Ver detalle"></button></span></td>
-								</tr>
-								<tr>
-									<th class="numberID"><span>5</span></th>
-									<td>ONG</td>
-									<td>XXXXXXXXXX</td>
-									<td class="text-ellipsis" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Acá va una descripción que permita identificar de que se trata el proceso y si es necesario su justificación." data-bs-custom-class="custom-tooltip">Acá va una descripción que permita identificar de que se trata el proceso y si es necesario su justificación.</td>
-									<td class="text-end">$ 12.000.000,02</td>
-									<td class="text-end">US$ 12.000,00</td>
-									<td class="text-center"><span class="me-2 iconos"><button type="button" class="btn-icon editar" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Editar"></button></span><span class="me-2 iconos"><button type="button" class="btn-icon visualizar" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Ver detalle"></button></span></td>
-								</tr>
-								<tr class="fila-total">
-									<th colspan="4" scope="col" class="total-monto">Total</th>
-									<th class="text-end">$ 350.000,00</th>
-									<th class="text-end">$ 248.000,00</th>
-									<th></th>
-								</tr>
+								
 							</tbody>
 						</table>
 						<div class="text-registros">
-							<p>Mostrando registros del 1 al 5 de un total de 20 registros.</p>
+							<p>Mostrando registros del 1 al 5 de un total de {{ procesos.length }} registros.</p>
 						</div>
 						<nav aria-label="Page navigation example">
-							<ul class="pagination justify-content-center mb-3">
+							<ul class="pagination justify-content-center">
 								<li class="page-item disabled">
 									<a class="page-link"><i class="fa-solid fa-chevron-left"></i></a>
 								</li>
@@ -117,3 +81,44 @@
             
 	</main>
 </template>
+
+
+<script>
+import { ref, onMounted } from 'vue';
+import { apiRoutes } from '@/config/api';
+import axios from 'axios';
+
+export default {
+
+	setup() {
+
+		const procesos = ref([]);
+		const errorMessage = ref('');
+
+		const getData = () => {
+			axios.get(apiRoutes.getProccess, {
+				headers: {
+					Authorization: `Bearer ${localStorage.getItem('auth_token')}`
+				},
+			})
+			.then(response => {
+				console.log(response.data.data);
+				procesos.value = response.data.data;				
+			})
+			.catch(error => {
+				errorMessage.value = error.response?.data?.message || "An unknown error occurred.";
+				console.error(error.response?.data?.message);
+			});
+    };
+
+		onMounted(() => {
+			getData();
+		});
+
+		return {
+			procesos,
+		}
+	}
+}
+
+</script>

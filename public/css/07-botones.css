@@ -162,6 +162,21 @@
   }
   }
   
+  .btn-icono {
+    padding: 6px 36px 14px 36px;
+    margin: 8px 12px;
+    width: auto;
+    border-radius: 8px;
+    height: 42px;
+    font-family: "Montserrat", sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: normal;
+  }
+  .btn-icono:focus {
+    box-shadow: 0px 0px 0px 2px #FFB02E;
+  }
+
   /* btn icon*/
   .btn-icon {
     border: none;
@@ -173,28 +188,28 @@
   }
   /* btn descargar */
   .print {
-    background-image: url(/img/print_Estado=default_az.png);
+    background-image: url(../img/print_Estado=default_az.png);
   }
   .print:hover {
-    background-image: url(/img/2_print_Estado=hover_az.svg);
+    background-image: url(../img/2_print_Estado=hover_az.svg);
   }
   
   /* btn excel */
   
   .excel {
-    background-image: url(/img/excel_Estado=default_az.png);
+    background-image: url(../img/excel_Estado=default_az.png);
   }
   .excel:hover {
-    background-image: url(/img/2_excel_Estado=hover_az.svg);
+    background-image: url(../img/2_excel_Estado=hover_az.svg);
   }
   
   /* btn pdf */
   
   .pdf {
-    background-image: url(/img/pdf_Estado=default_az.png);
+    background-image: url(../img/pdf_Estado=default_az.png);
   }
   .pdf:hover {
-    background-image: url(/img/2_pdf_Estado=hover_az.svg);
+    background-image: url(../img/2_pdf_Estado=hover_az.svg);
   }
   
   
@@ -208,58 +223,60 @@
 
   /* btn descargar negativo */
   .print-negativo {
-    background-image: url(/img/print_Estado=default_wh.png);
+    background-image: url(../img/print_Estado=default_wh.png);
   }
   .print-negativo:hover {
-    background-image: url(/img/2_print_Estado=hover_wh.svg);
+    background-image: url(../img/2_print_Estado=hover_wh.svg);
   }
   
   /* btn excel negativo*/
   
   .excel-negativo {
-    background-image: url(/img/exxcel_Estado=default_wh.png);
+    background-image: url(../img/exxcel_Estado=default_wh.png);
   }
   .excel-negativo:hover {
-    background-image: url(/img/2_excel_Estado=hover_wh.svg);
+    background-image: url(../img/2_excel_Estado=hover_wh.svg);
   }
   
   /* btn add negativo */
   
   .add-negativo {
-    background-image: url(/img/add_Estado=default_wh.png);
+    background-image: url(../img/add_Estado=default_wh.png);
+    background-repeat: no-repeat;
+    background-position: center center;
   }
   
   .add-negativo:hover {
-    background-image: url(/img/2_add_Estado=hover_wh.svg);
+    background-image: url(../img/2_add_Estado=hover_wh.svg);
   }
   
     /* btn editar*/
   
     .editar {
-      background-image: url(/img/Botones\ con\ ícono_editar_default.svg);
+      background-image: url(../img/Botones\ con\ ícono_editar_default.svg);
     }
     .editar:hover {
-      background-image: url(/img/Botones\ con\ ícono_editar_hover.svg);
+      background-image: url(../img/Botones\ con\ ícono_editar_hover.svg);
     }
     
     /* btn visualizar*/
     
     .visualizar {
-      background-image: url(/img/Botones\ con\ ícono_ver_default.svg);
+      background-image: url(../img/Botones\ con\ ícono_ver_default.svg);
     }
     
     .visualizar:hover {
-      background-image: url(/img/Botones\ con\ ícono_ver_hover.svg);
+      background-image: url(../img/Botones\ con\ ícono_ver_hover.svg);
     }
 
     /* btn eliminar*/
     
     .eliminar {
-      background-image: url(/img/Botones\ con\ ícono_eliminar_default.svg);
+      background-image: url(../img/Botones\ con\ ícono_eliminar_default.svg);
     }
     
     .eliminar:hover {
-      background-image: url(/img/Botones\ con\ ícono_eliminar_hover.svg);
+      background-image: url(../img/Botones\ con\ ícono_eliminar_hover.svg);
     }
     
   /*FIN BOTONES*/

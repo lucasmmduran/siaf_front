@@ -40,10 +40,14 @@
 				<div class="col-10">
 					<div class="row d-flex align-items-end">
 
-						<div class="col-6 pb-4">
-							<label for="FormControlTexto" class="form-label fw-normal">Concepto</label>
-							<input v-model="formData.concept" class="form-control campo-foco" type="text" id="FormControlTexto" placeholder="Universidades" aria-label="Input text">
-						</div>
+						<Selector 
+							class="col-6 pb-4"
+							id="select-concepto"
+							label="Concepto" 
+							name="concepto" 
+							:options="conceptos" 
+							v-model="formData.concepto" 
+						/>
 
 						<div class="col-3 pb-4">
 							<label class="box-container fw-normal">Plurianual
@@ -134,8 +138,14 @@
 						</div>
 
 						<div class="col-11 d-flex justify-content-end">
-							<span><button type="button" data-bs-dismiss="modal" class="btn btn-mobile btn-contorno">Cancelar</button></span>
-							<span class="ms-4"><button @click.prevent="sendData" type="button" class="btn btn-mobile btn-success">Guardar</button></span>
+							<span>
+								<RouterLink to="/procesos" class="btn btn-mobile btn-contorno">
+									Cancelar
+    						</RouterLink>
+							</span>
+							<span class="ms-4">
+								<button @click.prevent="sendData" type="button" class="btn btn-mobile btn-success">Guardar</button>
+							</span>
 						</div>
 					</div>
 				</div>
@@ -156,11 +166,12 @@ export default {
 
 	setup() {
 
+		const conceptos = ['Universidades', 'Organismo del Estado', 'ONG'];
 		const moneys = ['$', 'US$', 'EUR', 'REAL'];
 		const rateTypes = ['A la fecha de contrato', 'A la fecha de pago', 'REAL'];
 
 		const formData = reactive({
-			concept: '',
+			concepto: '',
 			multiyear: '',
 			notBudgeted: '',
 			identification: '',
@@ -181,8 +192,11 @@ export default {
 				},
 			})
 			.then(response => {
-				console.log(response.data)
+				console.log(response.data);
 				// redirect to partidas
+				//window.location.href('/procesos');
+				//sessionStorage.setItem('data_procesos', JSON.stringify(response.data.data));
+				window.location.href = '/procesos';
 			})
 			.catch(error => {
 				errorMessage.value = error.response?.data?.message || "An unknown error occurred.";
@@ -195,7 +209,8 @@ export default {
 			moneys,
 			rateTypes,
 			errorMessage,
-			formData
+			formData,
+			conceptos
 		}
 	}
 }

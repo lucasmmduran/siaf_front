@@ -42,6 +42,7 @@
 									<label for="recordsNumberB" class="form-label ms-2">elementos por página</label>
 								</div>
 							</div>
+						
 							<div class="col-12">
 								<div class="tabla-procesos-siaf">
 									<div class="row">
@@ -66,23 +67,24 @@
 										</tr>
 									</thead>
 									<tbody>
-										<tr>
-											<th class="numberID"><span>1</span></th>
-											<td>2024</td>
-											<td>Dirección de RRHH</td>
-											<td>RRHH</td>
-											<td>Ley Marco</td>
-											<td class="text-center">20/12/2024</td>
-											<td class="text-center">06/01/2025</td>
+										<tr v-for="p in planes">
+											<th class="numberID"><span>{{ p.id }}</span></th>
+											<td>{{ p.anio}}</td>
+											<td>{{ p.unidad }}</td>
+											<td>{{ p.identificacion_plan }}</td>
+											<td>{{ p.nro_plan }}</td>
+											<td class="text-center">{{ p.fecha_ingreso }}</td>
+											<td class="text-center">{{ p.fecha_ult_actualizacion }}</td>
 										</tr>
+										
 									</tbody>
 								</table>
 								<div class="text-registros">
-									<p>Mostrando registros del 1 al 1 de un total de 1 registros.</p>
+									<p>Mostrando registros del 1 al 1 de un total de {{ planes.length }} registros.</p>
 								</div>
 							</div>
 							<nav aria-label="Page navigation example">
-								<ul class="pagination justify-content-center mb-3">
+								<ul class="pagination justify-content-center">
 									<li class="page-item disabled">
 										<a class="page-link"><i class="fa-solid fa-chevron-left"></i></a>
 									</li>
@@ -122,8 +124,8 @@
 																id="select-ejercicio" 
 																label="Ejercicio" 
 																name="ejercicio" 
-																:options="years" 
-																v-model="selectedYear" 
+																:options="anios" 
+																v-model="anio_seleccionado" 
 															/>
                             </div>
                             <div class="col-10 mt-3">
@@ -131,8 +133,8 @@
 																id="select-unidad" 
 																label="Unidad" 
 																name="unidad" 
-																:options="units" 
-																v-model="selectedUnit" 
+																:options="unidades" 
+																v-model="unidad_seleccionada" 
 															/>
                             </div>
                             <div class="col-10 mt-3">
@@ -142,16 +144,16 @@
 																		id="select-plan-type" 
 																		label="Tipo Plan" 
 																		name="planType" 
-																		:options="planTypes" 
-																		v-model="selectedPlanType" 
+																		:options="identificacion_planes" 
+																		v-model="identificacion_plan_seleccionado" 
 																	/>
 																		<Selector 
 																			class="col-6"
 																			id="select-plan" 
 																			label="Plan" 
 																			name="plan" 
-																			:options="plans" 
-																			v-model="selectedPlan" 
+																			:options="planes_disponibles" 
+																			v-model="plan_seleccionado" 
 																		/>
                                     
                                 </div>
@@ -162,7 +164,7 @@
                                         <label class="form-label fw-normal" for="">Fecha de ingreso</label>
                                         <div class="input-group">
 																					<input 
-																						v-model="entryDate"
+																						v-model="fecha_ingreso"
 																						type="date" 
 																						class="form-control form-fecha" />
                                         </div>
@@ -170,7 +172,7 @@
                                     <div class="col-6">
                                         <label class="form-label fw-normal" for="">Fecha última actualización</label>
                                         <div class="input-group">
-																					<input v-model="lastUpdatedDate" type="date" class="form-control form-fecha"/>
+																					<input v-model="fecha_ult_actualizacion" type="date" class="form-control form-fecha"/>
                                         </div>
                                     </div>
                                 </div>
@@ -184,7 +186,7 @@
                     <div class="row">
                       <div class="col-11 d-flex justify-content-end">
                           <span><button type="button" data-bs-dismiss="modal" class="btn btn-mobile btn-contorno">Cancelar</button></span>
-                          <span class="ms-4"><button @click.prevent="sendData"  type="button" class="btn btn-mobile btn-success">Guardar</button></span>
+                          <span class="ms-4"><button @click.prevent="sendData" type="button" class="btn btn-mobile btn-success">Guardar</button></span>
                       </div>
                     </div>
                   </div>
@@ -198,7 +200,7 @@
 </template>
 
 <script>
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 import { apiRoutes } from '@/config/api';
 import axios from 'axios';
 import Selector from '@/views/Components/Selector.vue';
@@ -208,27 +210,29 @@ export default {
 
 	setup() {
 
-		const years = [2020, 2021, 2022, 2023, 2024];
-		const units = ['Unidad 1', 'Unidad 2', 'Unidad 3', 'Unidad 4'];
-		const planTypes = ['Convenios', 'RRHH', 'Fondos Rotatorios'];
-		const plans = ['Planta Permanente', 'Ley Marco', '1109', 'Otros'];
+		const planes = ref([]);
 
-		const selectedYear = ref('');
-		const selectedUnit = ref('');
-		const selectedPlanType = ref('');
-		const selectedPlan = ref('');
-		const entryDate = ref('');
-		const lastUpdatedDate = ref('');
+		const anios = [2020, 2021, 2022, 2023, 2024];
+		const unidades = ['Unidad 1', 'Unidad 2', 'Unidad 3', 'Unidad 4'];
+		const identificacion_planes = ['Convenios', 'RRHH', 'Fondos Rotatorios'];
+		const planes_disponibles = ['Planta Permanente', 'Ley Marco', '1109', 'Otros'];
+
+		const anio_seleccionado = ref('');
+		const unidad_seleccionada = ref('');
+		const identificacion_plan_seleccionado = ref('');
+		const plan_seleccionado = ref('');
+		const fecha_ingreso = ref('');
+		const fecha_ult_actualizacion = ref('');
 		const errorMessage = ref('');
 
 		const sendData = () => {
 			axios.post(apiRoutes.enviarCabecera, {
-				year: selectedYear.value,
-				unit: selectedUnit.value,
-				typePlan: selectedPlanType.value,
-				plan: selectedPlan.value,
-				entryDate: entryDate.value,
-				lastUpdatedDate: lastUpdatedDate.value,
+				anio: anio_seleccionado.value,
+				unidad: unidad_seleccionada.value,
+				identificacion_plan: identificacion_plan_seleccionado.value,
+				nro_plan: plan_seleccionado.value,
+				fecha_ingreso: fecha_ingreso.value,
+				fecha_ult_actualizacion: fecha_ult_actualizacion.value,
 			}, {
 				headers: {
 					Authorization: `Bearer ${localStorage.getItem('auth_token')}`
@@ -236,7 +240,8 @@ export default {
 			})
 			.then(response => {
 				console.log(response.data)
-				// redirect to procesos
+				planes.value = [...planes.value, ...response.data.data];
+				closeModal();
 			})
 			.catch(error => {
 				errorMessage.value = error.response?.data?.message || "An unknown error occurred.";
@@ -244,19 +249,47 @@ export default {
 			});
     };
 
+		const closeModal = () => {
+			const modalElement = document.getElementById('cargarPlan');
+				const modalInstance = bootstrap.Modal.getInstance(modalElement) || new bootstrap.Modal(modalElement);
+				modalInstance.hide();
+		};
+
+		const getData = () => {
+			axios.get(apiRoutes.getPlans, {
+				headers: {
+					Authorization: `Bearer ${localStorage.getItem('auth_token')}`
+				},
+			})
+			.then(response => {
+				console.log(response.data.data);
+				planes.value = response.data.data;
+				
+			})
+			.catch(error => {
+				errorMessage.value = error.response?.data?.message || "An unknown error occurred.";
+				console.error(error.response?.data?.message);
+			});
+    };
+
+		onMounted(() => {
+			getData();
+		});
+
 		return {
+			planes,
 			sendData,
 			errorMessage,
-			years,
-			units,
-			selectedYear,
-			selectedUnit,
-			planTypes,
-			plans,
-			selectedPlanType,
-			selectedPlan,
-			entryDate,
-			lastUpdatedDate,
+			anios,
+			unidades,
+			anio_seleccionado,
+			unidad_seleccionada,
+			identificacion_planes,
+			identificacion_plan_seleccionado,
+			plan_seleccionado,
+			planes_disponibles,
+			fecha_ingreso,
+			fecha_ult_actualizacion,
 		}
 	}
 }

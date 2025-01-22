@@ -45,7 +45,17 @@
 								<td class="text-end">$ 5.000,00</td>
 								<td class="text-end">$ -</td>
 								<td class="text-end">$ 12.000,02</td>
-								<td class="text-center"><span class="me-2 iconos" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Ver detalle"><button type="button" class="btn-icon visualizar" data-bs-toggle="modal" data-bs-target="#visualizarUno"></button></span><span class="me-2 iconos" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Editar"><button type="button" class="btn-icon editar" data-bs-toggle="modal" data-bs-target="#EditarPartida"></button></span><span class="me-2 iconos"><button type="button" class="btn-icon eliminar" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Eliminar"></button></span></td>
+								<td class="text-center">
+									<span class="me-2 iconos" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Ver detalle">
+										<button type="button" class="btn-icon visualizar" data-bs-toggle="modal" data-bs-target="#visualizarUno"></button>
+									</span>
+									<span class="me-2 iconos" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Editar">
+										<button type="button" class="btn-icon editar" data-bs-toggle="modal" data-bs-target="#EditarPartida"></button>
+									</span>
+									<span class="me-2 iconos">
+										<EliminarPartida />
+									</span>
+								</td>
 							</tr>
 							<tr class="selectable-row">
 								<th class="numberID text-center"><span>2</span></th>
@@ -74,7 +84,7 @@
 					<p>Mostrando registros del 1 al 2 de un total de 4 registros.</p>
 				</div>
 				<nav aria-label="Page navigation example">
-					<ul class="pagination justify-content-center mb-3">
+					<ul class="pagination justify-content-center">
 						<li class="page-item disabled">
 							<a class="page-link"><i class="fa-solid fa-chevron-left"></i></a>
 						</li>
@@ -98,12 +108,14 @@
 import MostrarPartida from '@/views/Pages/Partidas/MostrarPartida.vue';
 import AgregarPartida from '@/views/Pages/Partidas/AgregarPartida.vue';
 import EditarPartida from '@/views/Pages/Partidas/EditarPartida.vue';
+import EliminarPartida from '@/views/Pages/Partidas/EliminarPartida.vue';
 
 export default {
   components: { 
     MostrarPartida,
     AgregarPartida,
     EditarPartida,
+		EliminarPartida
   }
 }
 </script>

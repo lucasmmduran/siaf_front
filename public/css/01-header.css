@@ -236,13 +236,13 @@
   }
   
   .menu-usuario-btn-desplegable .accordion-button::after {
-    background-image: url(../img/icon-awesome-sort-down-negativo.svg) !important;
+    background-image: url(/img/icon-awesome-sort-down-negativo.svg) !important;
     background-size: auto;
     background-position: center;
   }
   
   .menu-usuario-btn-desplegable .accordion-button:not(.collapsed)::after {
-    background-image: url(../img/icon-awesome-sort-down-azul.svg) !important;
+    background-image: url(/img/icon-awesome-sort-down-azul.svg) !important;
   }
   
   img.img-header {
@@ -259,7 +259,7 @@
     position: relative; /* Necesario para que el ::before se posicione correctamente */
     height: auto;
     size-adjust: auto;
-    background-image: url("../img/img_loginhome.png");
+    background-image: url("/img/img_loginhome.png");
     background-repeat: no-repeat;
     background-size: cover;
   }

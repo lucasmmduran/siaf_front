@@ -47,12 +47,18 @@
         </section>         
       </section>
 
-      <div v-if="authStore.isAuthenticated" class="container mx-auto px-4 flex justify-center bg-transparent">
-        <Menu></Menu> 
-      </div>
+      
     </header>
 
-    <router-view />
+    <div v-if="authStore.isAuthenticated" class="flex space-x-2">
+      <div class=" pt-52 px-4 top-50 bg-gray-100 ">
+        <Menu></Menu> 
+      </div>
+      <router-view />
+    </div>
+    <div v-else>
+      <router-view />
+    </div>
 
     <footer>
       <section class="footer">
