@@ -6,4 +6,5 @@ Learn more about IDE Support for Vue in the [Vue Docs Scaling up Guide](https://
 
 # Comandos a correr
 npm install
+
 npm run dev
