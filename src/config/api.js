@@ -5,6 +5,10 @@ export const apiRoutes = {
   enviarCabecera: `${API_URL}/cabecera`,
   getPlans: `${API_URL}/get_plans`,
   getProccess: `${API_URL}/get_proccess`,
+
+  // rutas back oveja
+  planes_cabecera_index: `${API_URL}/pla/planes/cabecera`,
+  planes_cabecera_new: `${API_URL}/pla/planes/cabecera/new`,
   
 };
 

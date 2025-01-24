@@ -24,7 +24,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 
 const emit = defineEmits();
 
@@ -35,6 +35,13 @@ const props = defineProps({
   options: Array,
   modelValue: [String, Number],
 });
+
+watch(
+  () => props.modelValue,
+  (newValue) => {
+    selected.value = newValue; 
+  }
+);
 
 const isOpen = ref(false);
 const selected = ref(props.modelValue || ''); 

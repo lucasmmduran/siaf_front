@@ -1,5 +1,7 @@
 <template>
-	<form id="formPlanificacion" action="" class="mb-3 mt-56">
+	<form id="formPlanificacion" action="" class="mb-3 mt-20">
+		
+		<!-- Plan sobre el cual estoy editando -->
 		<section class="header-planificacion">
 			<div class="container">
 					<div class="row">
@@ -11,8 +13,8 @@
 							</div>
 					</div>
 			</div>
-			<section class="bg-gris4">
-				<div class="container">
+			<section class="">
+				<div class="container bg-gris4">
 					<div class="row d-flex align-items-start">
 						<div class="col-4">
 							<span><b>Plan:</b> RRHH/ Ley Marco</span>
@@ -32,6 +34,7 @@
 				</div>
 			</section>
 		</section>
+
 		<div class="container">
 			<div class="row d-flex justify-content-center">
 				<div v-if="errorMessage" class="col-10">
@@ -137,6 +140,10 @@
 							</table>
 						</div>
 
+						<div class="col-12">
+							<Partidas></Partidas>
+						</div>
+
 						<div class="col-11 d-flex justify-content-end">
 							<span>
 								<RouterLink to="/procesos" class="btn btn-mobile btn-contorno">
@@ -147,10 +154,15 @@
 								<button @click.prevent="sendData" type="button" class="btn btn-mobile btn-success">Guardar</button>
 							</span>
 						</div>
+
+						
+
 					</div>
 				</div>
 			</div>
 		</div>
+
+		
 	</form>
 </template>
 
@@ -160,9 +172,10 @@ import { reactive, ref } from 'vue';
 import { apiRoutes } from '@/config/api';
 import axios from 'axios';
 import Selector from '@/views/Components/Selector.vue';
+import Partidas from "@/views/Pages/Procesos/Partidas/Index.vue";
 
 export default {
-	components : { Selector},
+	components : { Selector, Partidas },
 
 	setup() {
 

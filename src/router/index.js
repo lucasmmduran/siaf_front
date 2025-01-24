@@ -2,20 +2,22 @@ import { createRouter, createWebHistory } from 'vue-router';
 import { useAuthStore } from '@/stores/auth';
 
 import LoginPage from '@/views/Pages/Login/LoginPage.vue';
-import PlanificacionDeEjecucion from '@/views/Pages/PlanificacionDeEjecucion/Index.vue';
-import Cabeceras from '@/views/Pages/Cabeceras.vue';
+
+import Planes from '@/views/Pages/Planes/Index.vue';
 import Procesos from '@/views/Pages/Procesos/Index.vue';
 import AgregarProceso from '@/views/Pages/Procesos/AgregarProceso.vue';
-import Partidas from '@/views/Pages/Partidas/Index.vue';
+import Partidas from '@/views/Pages/Procesos/Partidas/Index.vue';
 import NotFoundPage from '@/views/Pages/NotFoundPage.vue';
 
 const routes = [
   { path: '/', name: 'Login', component: LoginPage },
-  { path: '/cabeceras', name: 'Cabeceras', component: Cabeceras, meta: { requiresAuth: true} },
+  { path: '/planes', name: 'Planes', component: Planes, meta: { requiresAuth: true} },
+  { path: '/planes/:id/edit', name: 'EditarPlan', component: () => import('@/views/Pages/Procesos/Index.vue'), meta: { requiresAuth: true} },
+
   { path: '/procesos', name: 'Procesos', component: Procesos, meta: { requiresAuth: true} },
   { path: '/agregar-proceso', name: 'AgregarProceso', component: AgregarProceso, meta: { requiresAuth: true} },
+  
   { path: '/partidas', name: 'Partidas', component: Partidas, meta: { requiresAuth: true} },
-  { path: '/planificacion-de-ejecucion', name: 'PlanificacionDeEjecucion', component: PlanificacionDeEjecucion, meta: { requiresAuth: true} },
   { path: '/:pathMatch(.*)*', name: 'NotFound', component: NotFoundPage }
 ];
 
@@ -31,7 +33,7 @@ router.beforeEach((to, from, next) => {
     
     const authStore = useAuthStore();
     authStore.login(token);
-    router.push({ name: 'Cabeceras' });
+    router.push({ name: 'Planes' });
     return;
   }
 

@@ -1,6 +1,6 @@
 <template>
 <div>
-	<section class="tabla-partidas-presupuestarias mt-32">
+	<section class="tabla-partidas-presupuestarias">
 		<div class="container">
 			<div class="row">
 				<div class="col-12">
@@ -105,10 +105,10 @@
 </template>
 
 <script>
-import MostrarPartida from '@/views/Pages/Partidas/MostrarPartida.vue';
-import AgregarPartida from '@/views/Pages/Partidas/AgregarPartida.vue';
-import EditarPartida from '@/views/Pages/Partidas/EditarPartida.vue';
-import EliminarPartida from '@/views/Pages/Partidas/EliminarPartida.vue';
+import MostrarPartida from '@/views/Pages/Procesos/Partidas/MostrarPartida.vue';
+import AgregarPartida from '@/views/Pages/Procesos/Partidas/AgregarPartida.vue';
+import EditarPartida from '@/views/Pages/Procesos/Partidas/EditarPartida.vue';
+import EliminarPartida from '@/views/Pages/Procesos/Partidas/EliminarPartida.vue';
 
 export default {
   components: { 

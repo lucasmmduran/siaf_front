@@ -1,39 +1,7 @@
 <template>
-	<main class="formulario-main w-10/12">
-
-			<section class="header-planificacion">
-				<div class="container">
-					<div class="row">
-						<div class="col-6">
-							<h3>Planificación de ejecución</h3>
-						</div>
-						<div class="col-6 text-end">
-							<h3>Nro RRHH-99988/2024</h3>
-						</div>
-					</div>
-				</div>
-				<section class="bg-gris4">
-					<div class="container">
-						<div class="row">
-							<div class="col-4">
-								<span><b>Plan:</b> -/-</span>
-							</div>
-							<div class="col-4 d-flex justify-content-center">
-								<span><b>Estado: </b><span class="enproceso">En proceso (18/12/2024)</span></span>
-							</div>
-							<div class="col-4 d-flex justify-content-end">
-								<span class="me-2"><button type="button" class="btn-icon print" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Imprimir"></button></span>
-								<span class="me-2"><button type="button" class="btn-icon excel" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Descargar XLSX"></button></span>
-								<span class="me-2"><button type="button" class="btn-icon pdf" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Descargar PDF"></button></span>
-							</div>
-						</div>
-					</div>
-				</section>
-			</section>
-			
-
+	<main class="formulario-main">
 			<section class="tabla-plan">
-					<div class="container mx-auto px-4">
+					<div class="container">
 						<div class="row d-flex justify-content-center">
 							<div class="col-12">
 								<div class="cantidad-registros mt-1">
@@ -64,6 +32,7 @@
 											<th scope="col">Plan</th>
 											<th scope="col">Fecha de <br> ingreso</th>
 											<th scope="col">Fecha última <br>actualización</th>
+											<!-- <th scope="col">Acciones</th> -->
 										</tr>
 									</thead>
 									<tbody>
@@ -75,12 +44,27 @@
 											<td>{{ p.nro_plan }}</td>
 											<td class="text-center">{{ p.fecha_ingreso }}</td>
 											<td class="text-center">{{ p.fecha_ult_actualizacion }}</td>
+											<td class="text-center">
+												<span class="me-2 iconos">
+													<RouterLink :to="`/planes/${p.id}/edit`">
+														<button 
+															type="button" 
+															class="btn-icon editar" 
+															data-bs-toggle="tooltip" 
+															data-bs-placement="bottom" 
+															data-bs-custom-class="custom-tooltip" 
+															data-bs-title="Editar">
+														</button>
+													</RouterLink>
+													
+												</span>
+											</td>
 										</tr>
 										
 									</tbody>
 								</table>
 								<div class="text-registros">
-									<p>Mostrando registros del 1 al 1 de un total de {{ planes.length }} registros.</p>
+									<p>Mostrando {{ planes.length }} registros.</p>
 								</div>
 							</div>
 							<nav aria-label="Page navigation example">
@@ -158,7 +142,7 @@
                                     
                                 </div>
                             </div>
-                            <div class="col-10 mt-3">
+                            <!-- <div class="col-10 mt-3">
                                 <div class="row">
                                     <div class="col-6">
                                         <label class="form-label fw-normal" for="">Fecha de ingreso</label>
@@ -176,7 +160,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                   </form>
@@ -212,7 +196,7 @@ export default {
 
 		const planes = ref([]);
 
-		const anios = [2020, 2021, 2022, 2023, 2024];
+		const anios = [2025, 2024, 2023, 2022, 2021, 2020];
 		const unidades = ['Unidad 1', 'Unidad 2', 'Unidad 3', 'Unidad 4'];
 		const identificacion_planes = ['Convenios', 'RRHH', 'Fondos Rotatorios'];
 		const planes_disponibles = ['Planta Permanente', 'Ley Marco', '1109', 'Otros'];
@@ -221,8 +205,8 @@ export default {
 		const unidad_seleccionada = ref('');
 		const identificacion_plan_seleccionado = ref('');
 		const plan_seleccionado = ref('');
-		const fecha_ingreso = ref('');
-		const fecha_ult_actualizacion = ref('');
+		/* const fecha_ingreso = ref('');
+		const fecha_ult_actualizacion = ref(''); */
 		const errorMessage = ref('');
 
 		const sendData = () => {
@@ -231,8 +215,8 @@ export default {
 				unidad: unidad_seleccionada.value,
 				identificacion_plan: identificacion_plan_seleccionado.value,
 				nro_plan: plan_seleccionado.value,
-				fecha_ingreso: fecha_ingreso.value,
-				fecha_ult_actualizacion: fecha_ult_actualizacion.value,
+				/* fecha_ingreso: fecha_ingreso.value,
+				fecha_ult_actualizacion: fecha_ult_actualizacion.value, */
 			}, {
 				headers: {
 					Authorization: `Bearer ${localStorage.getItem('auth_token')}`
@@ -256,11 +240,11 @@ export default {
 		};
 
 		const getData = () => {
-			axios.get(apiRoutes.getPlans, {
+			axios.get(apiRoutes.planes_cabecera_index/* , {
 				headers: {
 					Authorization: `Bearer ${localStorage.getItem('auth_token')}`
 				},
-			})
+			} */)
 			.then(response => {
 				console.log(response.data.data);
 				planes.value = response.data.data;
@@ -288,10 +272,14 @@ export default {
 			identificacion_plan_seleccionado,
 			plan_seleccionado,
 			planes_disponibles,
-			fecha_ingreso,
-			fecha_ult_actualizacion,
 		}
 	}
 }
 
 </script>
+
+<style scoped>
+main.formulario-main {
+	padding-top: 0px !important;
+}
+</style>
