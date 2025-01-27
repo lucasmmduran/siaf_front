@@ -95,6 +95,7 @@ export default {
     authStore.checkAuth();
 
     const handleLogout = () => {
+      localStorage.clear();
       authStore.logout();
       router.push({ name: 'Login' });
     };

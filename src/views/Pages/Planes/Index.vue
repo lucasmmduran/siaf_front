@@ -32,7 +32,7 @@
 											<th scope="col">Plan</th>
 											<th scope="col">Fecha de <br> ingreso</th>
 											<th scope="col">Fecha última <br>actualización</th>
-											<!-- <th scope="col">Acciones</th> -->
+											<th scope="col">Acciones</th>
 										</tr>
 									</thead>
 									<tbody>
@@ -46,7 +46,7 @@
 											<td class="text-center">{{ p.fecha_ult_actualizacion }}</td>
 											<td class="text-center">
 												<span class="me-2 iconos">
-													<RouterLink :to="`/planes/${p.id}/edit`">
+													<RouterLink :to="`/planes/${p.id}/procesos`">
 														<button 
 															type="button" 
 															class="btn-icon editar" 
@@ -184,7 +184,7 @@
 </template>
 
 <script>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted , watch} from 'vue';
 import { apiRoutes } from '@/config/api';
 import axios from 'axios';
 import Selector from '@/views/Components/Selector.vue';
@@ -205,18 +205,59 @@ export default {
 		const unidad_seleccionada = ref('');
 		const identificacion_plan_seleccionado = ref('');
 		const plan_seleccionado = ref('');
-		/* const fecha_ingreso = ref('');
-		const fecha_ult_actualizacion = ref(''); */
 		const errorMessage = ref('');
 
 		const sendData = () => {
+        planes.value.push({
+					id: generateRandomId(),
+          anio: anio_seleccionado.value,
+          unidad: unidad_seleccionada.value,
+          identificacion_plan: identificacion_plan_seleccionado.value,
+          nro_plan: plan_seleccionado.value,
+          fecha_ingreso: generateDate(),
+          fecha_ult_actualizacion: generateDate(),
+        });
+        
+				anio_seleccionado.value = "";
+				unidad_seleccionada.value = "";
+				identificacion_plan_seleccionado.value = "";
+				plan_seleccionado.value = "";
+				
+				closeModal();
+    };
+
+		watch(
+      planes,
+      (nuevosPlanes) => {
+        localStorage.setItem("planes", JSON.stringify(nuevosPlanes));
+      },
+      { deep: true }
+    );
+
+		onMounted(() => {
+      const planesGuardados = localStorage.getItem("planes");
+      if (planesGuardados) {
+        planes.value = JSON.parse(planesGuardados);
+      }
+    });
+
+		const generateRandomId = function(length = 6) {
+			return Math.floor(Math.random() * 1000);
+		};
+
+		const generateDate = () => {
+			const now = new Date();
+			return `${now.getFullYear()}-${(now.getMonth() + 1)
+				.toString()
+				.padStart(2, "0")}-${now.getDate().toString().padStart(2, "0")}`;
+		};
+
+		/* const sendData = () => {
 			axios.post(apiRoutes.enviarCabecera, {
 				anio: anio_seleccionado.value,
 				unidad: unidad_seleccionada.value,
 				identificacion_plan: identificacion_plan_seleccionado.value,
 				nro_plan: plan_seleccionado.value,
-				/* fecha_ingreso: fecha_ingreso.value,
-				fecha_ult_actualizacion: fecha_ult_actualizacion.value, */
 			}, {
 				headers: {
 					Authorization: `Bearer ${localStorage.getItem('auth_token')}`
@@ -231,7 +272,7 @@ export default {
 				errorMessage.value = error.response?.data?.message || "An unknown error occurred.";
 				console.error(error.response?.data?.message);
 			});
-    };
+    }; */
 
 		const closeModal = () => {
 			const modalElement = document.getElementById('cargarPlan');
@@ -239,12 +280,12 @@ export default {
 				modalInstance.hide();
 		};
 
-		const getData = () => {
-			axios.get(apiRoutes.planes_cabecera_index/* , {
+		/* const getData = () => {
+			axios.get(apiRoutes.planes_cabecera_index , {
 				headers: {
 					Authorization: `Bearer ${localStorage.getItem('auth_token')}`
 				},
-			} */)
+			})
 			.then(response => {
 				console.log(response.data.data);
 				planes.value = response.data.data;
@@ -254,11 +295,7 @@ export default {
 				errorMessage.value = error.response?.data?.message || "An unknown error occurred.";
 				console.error(error.response?.data?.message);
 			});
-    };
-
-		onMounted(() => {
-			getData();
-		});
+    }; */
 
 		return {
 			planes,

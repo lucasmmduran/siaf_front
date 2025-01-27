@@ -4,13 +4,13 @@
 		<PlanHeader :planId="planId"></PlanHeader>
 
 		<div class="container">
+
 			<div class="row d-flex justify-content-center">
 				<div v-if="errorMessage" class="col-10">
 					<div class="alert alert-danger">{{ errorMessage }}</div>
 				</div>
 				<div class="col-10">
 					<div class="row d-flex align-items-end">
-
 						<Selector 
 							class="col-6 pb-4"
 							id="select-concepto"
@@ -108,9 +108,9 @@
 							</table>
 						</div>
 
-						<!-- <div class="col-12">
+						<div class="col-12">
 							<Partidas></Partidas>
-						</div> -->
+						</div>
 
 						<div class="col-11 d-flex justify-content-end">
 							<span>
@@ -134,7 +134,7 @@
 
 
 <script>
-import { reactive, ref, onMounted, watch, provide } from 'vue';
+import { reactive, ref, onMounted, watch, provide, computed } from 'vue';
 import Selector from '@/views/Components/Selector.vue';
 import Partidas from "@/views/Pages/Procesos/Partidas/Index.vue";
 import PlanHeader from '@/views/Pages/Procesos/PlanHeader.vue';
@@ -149,15 +149,9 @@ export default {
 		const router = useRouter();
 		const planId = route.params.id;
 
-		const generateRandomId = function(length = 6) {
-			return Math.floor(Math.random() * 1000);
-		};
-
-		const procesoId = generateRandomId();
-
-		provide("procesoId", generateRandomId());
-
+		
 		const proceso = ref([]);
+
 		const conceptos = ['Universidades', 'Organismo del Estado', 'ONG'];
 		const monedas = ['$', 'US$', 'EUR', 'REAL'];
 		const tipo_de_tasas = ['A la fecha de contrato', 'A la fecha de pago', 'REAL'];
@@ -173,6 +167,8 @@ export default {
 			tipo_de_tasa_seleccionada: '',
 			tasa_plan: '',
 		});
+
+		provide("procesoId", computed(() => formData.id));
 
 		const errorMessage = ref('');
 		
@@ -216,16 +212,24 @@ export default {
     );
 
 		onMounted(() => {
-			const procesosGuardados = localStorage.getItem("procesos_"+planId);
-			console.log("ok");
-      if (procesosGuardados) {
-        proceso.value = JSON.parse(procesosGuardados);
-      }
-		})
+			const procesosGuardados = localStorage.getItem("procesos_" + planId);
+			if (procesosGuardados) {
+				const parsedProcesos = JSON.parse(procesosGuardados);
+
+				if (parsedProcesos.length > 0) {
+					const primerProceso = parsedProcesos[0];
+					Object.keys(formData).forEach((key) => {
+						formData['id'] = primerProceso['id'];
+						if (primerProceso.hasOwnProperty(key)) {
+							formData[key] = primerProceso[key];
+						}
+					});
+				}
+			}
+		});
 
 		return {
 			planId,
-			procesoId,
 			sendData,
 			monedas,
 			conceptos,

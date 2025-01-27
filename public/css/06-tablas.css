@@ -171,20 +171,20 @@
     background-color: #D4D4D4; /* Color fijo para el total */
     cursor: default; /* Sin efecto de puntero */
   }
-  #mainTable tbody tr.fila-total:hover {
-    background-color: #D4D4D4 !important; /* Sin efecto de hover */
-    border: 1px solid #E2E2E2 !important;
-    cursor: default !important;
-  }
-  #mainTable tbody tr:not(.selected):hover {
-    background-color: #3193371A !important; /* Verde más claro al hacer hover */
-    border: 2px solid #319337;
-    cursor: pointer;
-  }
-  #mainTable tbody tr.selected {
-    border: 2px solid #319337;
-    background-color: #3193371A !important;
-  }
+  /*   #mainTable tbody tr.fila-total:hover {
+      background-color: #D4D4D4 !important; 
+      border: 1px solid #E2E2E2 !important;
+      cursor: default !important;
+    }
+    #mainTable tbody tr:not(.selected):hover {
+      background-color: #3193371A !important; 
+      border: 2px solid #319337;
+      cursor: pointer;
+    }
+    #mainTable tbody tr.selected {
+      border: 2px solid #319337;
+      background-color: #3193371A !important;
+    } */
   #detailsContainer {
     display: flex;
     flex-direction: column;

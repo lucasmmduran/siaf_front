@@ -1,5 +1,6 @@
 <template>
 	<form id="dataForm">
+		
 		<p v-if="successMessage" class="alert alert-success"> {{ successMessage }}</p>
 		<p v-if="errorMessage" class="alert alert-danger"> {{ errorMessage }}</p>
 		<div class="row d-flex justify-content-center">
@@ -12,7 +13,7 @@
 		/>
 		<div class="col-5">
 			<label for="objetoInput" class="form-label fw-normal">Objeto del gasto</label>
-			<input v-model="formData.objeto_del_gasto" type="number" id="objetoInput" name="objetoInput" class="form-control form-number" placeholder="2.3.5.1">
+			<input v-model="formData.objeto_gasto" type="number" id="objetoInput" name="objetoInput" class="form-control form-number" placeholder="2.3.5.1">
 		</div>
 		<Selector 
 			class="col-5"
@@ -181,9 +182,9 @@
 </template>
 
 <script>
-import { ref, reactive, computed } from 'vue';
-import axios from 'axios';
+import { ref, reactive, computed, watch, inject, provide, onMounted } from 'vue';
 import Selector from '@/views/Components/Selector.vue';
+import { useRoute } from 'vue-router';
 
 export default {
 	components: { Selector },
@@ -191,6 +192,10 @@ export default {
 	props: {
 		endpoint: {
 			type: String,
+			required: true,
+		},
+		partidaSeleccionada: {
+			type: Object,
 			required: true,
 		}
 	},
@@ -200,9 +205,16 @@ export default {
 		const successMessage = ref('');
     const errorMessage = ref('');
 
+		const partida = ref([]);
+		const partidas = inject("partidas"); // Inyectar el array 'partidas' de Partidas.vue
+		const partidaSeleccionada = props.partidaSeleccionada;
+
+		const route = useRoute();	
+		const procesoId = route.params.procesoId;
+
 		const resetForm = () => {
 			formData.programatica_seleccionada = "",
-      formData.objeto_del_gasto = "",
+      formData.objeto_gasto = "",
       formData.fuente_seleccionada = "",
 			formData.rowsCompromiso = [
         {
@@ -254,7 +266,7 @@ export default {
 
 		const initialFormData = {
       programatica_seleccionada: "",
-      objeto_del_gasto: "",
+      objeto_gasto: "",
       fuente_seleccionada: "",
       rowsCompromiso: [
         {
@@ -275,44 +287,83 @@ export default {
 		const formData = reactive({ ...initialFormData });
 		
 		const sendData = () => {
-			try {
-        const payload = {
-          programatica_seleccionada: formData.programatica_seleccionada,
-          objeto_del_gasto: formData.objeto_del_gasto,
-          fuente_seleccionada: formData.fuente_seleccionada,
-          rowsCompromiso: formData.rowsCompromiso.map(row => ({
-            month: row.mes_seleccionado,
-            monto: row.monto,
-          })),
-					rowsDevengado: formData.rowsDevengado.map(row => ({
-            month: row.mes_seleccionado,
-            monto: row.monto,
-          })),
-        };
+			const payload = {
+				procesoId: procesoId,
+				id: generateRandomId(),
+				programatica: formData.programatica_seleccionada,
+				objeto_gasto: formData.objeto_gasto,
+				fuente: formData.fuente_seleccionada,
+				rowsCompromiso: formData.rowsCompromiso.map(row => ({
+					month: row.mes_seleccionado,
+					monto: row.monto,
+				})),
+				rowsDevengado: formData.rowsDevengado.map(row => ({
+					month: row.mes_seleccionado,
+					monto: row.monto,
+				})),
+			};
 
-				axios.post(props.endpoint, payload, {
-					headers: {
-						Authorization: `Bearer ${localStorage.getItem('auth_token')}`
-					},
-				})
-				.then(response => {
-					successMessage.value = "Datos enviados correctamente.";
-					resetForm(); 
-					console.log(response.data)
-					// redirect to partidas
-				})
-				.catch(error => {
-					errorMessage.value = error.response?.data?.message || "An unknown error occurred.";
-					console.error(error.response?.data?.message);
-				});
-			} catch (error) {
-        console.error("Error sending data:", error);
-				errorMessage.value = error;
-      }
+			if (partidas) {
+				console.log(procesoId);
+				localStorage.setItem("partidas_" + procesoId, JSON.stringify(partidas.value));
+				partidas.value.push(payload);
+			}
 			
+			resetForm();
+			closeModal();			
     };
 
+		watch(
+			() => props.partidaSeleccionada, 
+			(nuevaPartida) => {
+				if (nuevaPartida) {
+					// Actualiza formData con los valores de la partida seleccionada
+					formData.programatica_seleccionada = nuevaPartida.programatica || "";
+					formData.objeto_gasto = nuevaPartida.objeto_gasto || "";
+					formData.fuente_seleccionada = nuevaPartida.fuente || "";
+
+					// Copia rowsCompromiso y rowsDevengado si existen
+					formData.rowsCompromiso = nuevaPartida.rowsCompromiso?.map((row, index) => ({
+						id: index + 1,
+						mes_seleccionado: row.mes_seleccionado || "",
+						monto: row.monto || "",
+					})) || [
+						{ id: 1, mes_seleccionado: "", monto: "" },
+					];
+
+					formData.rowsDevengado = nuevaPartida.rowsDevengado?.map((row, index) => ({
+						id: index + 1,
+						mes_seleccionado: row.mes_seleccionado || "",
+						monto: row.monto || "",
+					})) || [
+						{ id: 1, mes_seleccionado: "", monto: "" },
+					];
+				}
+			},
+			{ immediate: true, deep: true } // Ejecuta el watch inmediatamente y permite observar objetos anidados
+		);
+
+
+		const generateRandomId = function(length = 6) {
+			return Math.floor(Math.random() * 1000);
+		};
+
+		const closeModal = () => {
+			const modalElement = document.getElementById('nuevaPartida');
+				const modalInstance = bootstrap.Modal.getInstance(modalElement) || new bootstrap.Modal(modalElement);
+				modalInstance.hide();
+		};
+
+		/* onMounted(() => {
+      if (partidaSeleccionada.value) {
+        formData.value.programatica = partidaSeleccionada.value.programatica;
+        formData.value.objeto_gasto = partidaSeleccionada.value.objeto_gasto;
+        formData.value.fuente = partidaSeleccionada.value.fuente;
+      }
+    }); */
+
 		return {
+			partida,
 			errorMessage,
 			successMessage,
       sendData,
@@ -323,6 +374,8 @@ export default {
 			montoTotal,
 			agregarFila,
 			eliminarFila,
+			procesoId,
+			partidaSeleccionada,
     }
 
 	}

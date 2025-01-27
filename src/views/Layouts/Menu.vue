@@ -8,7 +8,7 @@
       >
         Planes
       </RouterLink>
-      <RouterLink
+      <!-- <RouterLink
         to="/procesos"
         class="tw-border-b pb-4 tw-text-center tw-border-gray-300"
         :class="{'tw-text-active tw-font-bold': isActive('/procesos')}"
@@ -21,7 +21,7 @@
         :class="{'tw-text-active tw-font-bold': isActive('/partidas')}"
       >
         Partidas
-      </RouterLink>
+      </RouterLink> -->
     </div>
   </div>
 </template>

@@ -36,28 +36,29 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr class="selected">
-								<th class="numberID text-center"><span>1</span></th>
-								<td class="text-center">11</td>
-								<td>17.0.0.0.0</td>
-								<td>2.3.5.0</td>
-								<td class="text-end">$ -</td>
-								<td class="text-end">$ 5.000,00</td>
-								<td class="text-end">$ -</td>
-								<td class="text-end">$ 12.000,02</td>
-								<td class="text-center">
+							<tr v-for="p in partidas" :key="p.id" class="selectedNo">
+								<th class="numberID text-center"><span>{{ p.id }}</span></th>
+								<td class="text-center">{{ p.fuente }}</td>
+								<td>{{ p.programatica }}</td>
+								<td>{{ p.objeto_gasto }}</td>
+								<td class="text-end">{{ p.t1 }}</td>
+								<td class="text-end">{{ p.t2 }}</td>
+								<td class="text-end">{{ p.t3 }}</td>
+								<td class="text-end">{{ p.t4 }}</td>
+								<td class="">
 									<span class="me-2 iconos" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Ver detalle">
 										<button type="button" class="btn-icon visualizar" data-bs-toggle="modal" data-bs-target="#visualizarUno"></button>
 									</span>
 									<span class="me-2 iconos" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Editar">
-										<button type="button" class="btn-icon editar" data-bs-toggle="modal" data-bs-target="#EditarPartida"></button>
+										<button type="button" class="btn-icon editar" data-bs-toggle="modal" :data-bs-target="'#EditarPartida_'+p.id"></button>
 									</span>
+									<EditarPartida :partidaSeleccionada="p" />
 									<span class="me-2 iconos">
-										<EliminarPartida />
+										<EliminarPartida @eliminarPartida="eliminarPartida" :partida="p" />
 									</span>
 								</td>
 							</tr>
-							<tr class="selectable-row">
+							<!-- <tr class="selectable-row">
 								<th class="numberID text-center"><span>2</span></th>
 								<td class="text-center">12</td>
 								<td>10.01.01.001</td>
@@ -75,13 +76,13 @@
 								<th class="text-end">$ -</th>
 								<th class="text-end">$ 48.000,07</th>
 								<th></th>
-							</tr>
+							</tr> -->
 						</tbody>
 					</table>
 				</div>
 				
 				<div class="text-registros">
-					<p>Mostrando registros del 1 al 2 de un total de 4 registros.</p>
+					<p>Mostrando {{ partidas.length }} registros.</p>
 				</div>
 				<nav aria-label="Page navigation example">
 					<ul class="pagination justify-content-center">
@@ -100,15 +101,18 @@
 	</section>
   <MostrarPartida />
   <AgregarPartida />
-  <EditarPartida />
+  
 </div>
 </template>
 
 <script>
+import { reactive, ref, onMounted, watch, inject, provide } from 'vue';
+
 import MostrarPartida from '@/views/Pages/Procesos/Partidas/MostrarPartida.vue';
 import AgregarPartida from '@/views/Pages/Procesos/Partidas/AgregarPartida.vue';
 import EditarPartida from '@/views/Pages/Procesos/Partidas/EditarPartida.vue';
 import EliminarPartida from '@/views/Pages/Procesos/Partidas/EliminarPartida.vue';
+import { useRoute } from 'vue-router';
 
 export default {
   components: { 
@@ -116,6 +120,58 @@ export default {
     AgregarPartida,
     EditarPartida,
 		EliminarPartida
-  }
+  },
+
+	setup(){
+		const partidas = ref([]);
+		const route = useRoute();	
+		const procesoId = route.params.procesoId;
+		const partidaSeleccionada = ref([]);
+
+		const eliminarPartida = (id) => {
+      const index = partidas.value.findIndex(partida => partida.id === id);
+      if (index !== -1) {
+        partidas.value.splice(index, 1);
+      }
+    };
+
+		onMounted(() => {
+			const partidasGuardadas = localStorage.getItem("partidas_" + procesoId);
+			if (partidasGuardadas) {
+				partidas.value = JSON.parse(partidasGuardadas);
+			}
+		});
+
+		provide("partidas", partidas);
+
+		watch(partidas, (nuevaPartida) => {
+			localStorage.setItem("partidas_" + procesoId, JSON.stringify(nuevaPartida));
+		}, { deep: true });
+
+		/* const editarPartida = (p) => {
+			partidaSeleccionada.value = p;
+			console.log(partidaSeleccionada.value.id);
+			nextTick(() => {
+				const modal = new bootstrap.Modal(document.getElementById('EditarPartida'));
+				modal.show();
+			});
+		} */
+
+		return {
+			partidas,
+			procesoId,
+			partidaSeleccionada,
+			eliminarPartida,
+		}
+	}
 }
 </script>
+
+<style scoped>
+	/*
+		comentadas en 06-tablas.css 
+			#mainTable tbody tr.fila-total:hover
+			#mainTable tbody tr:not(.selected):hover
+  		#mainTable tbody tr.selected
+	*/ 
+</style>

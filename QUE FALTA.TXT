@@ -1,0 +1,17 @@
+- DIAD
+[con session storage]
+- editar partida.
+- ver que hace plurianual dentro de proceso.
+- la suma de t1,t2,t3,t4 dentro de cada partida presupuestaria.
+- mostrar resumen presupuestario de todos los procesos en /planes/{planId}/procesos
+
+
+// cunado guarda un proceso que se quede en la pag de editar proceso porque va a cargar la posibilidad de agregar/editar partidas, actualmente redirige a la tabla procesos qeu muestra que el proceso ha sido agregado
+
+
+// preguntar
+	- de donde sale el monto anual en la tabla procesos
+	- que debe hacer el plurianual, en el maquetado mostraba una tabla con datos pero de donde salen esos datos?
+	- en partidas presupuestarias, en la tabla mostrar partida hay columnas (ff, programatica, objeto del gasto, t1, t2, t3, t4)
+		ff es fuente?
+		t1 estimo debe ser la suma de los primeros 3 meses si es que los pone. Idem t2, t3 y t4.
