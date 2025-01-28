@@ -182,9 +182,9 @@
 </template>
 
 <script>
-import { ref, reactive, computed, watch, inject, provide, onMounted } from 'vue';
+import { ref, reactive, computed, watch, inject, provide, onMounted, toRef } from 'vue';
 import Selector from '@/views/Components/Selector.vue';
-import { useRoute } from 'vue-router';
+import { useRoute,useRouter } from 'vue-router';
 
 export default {
 	components: { Selector },
@@ -200,15 +200,23 @@ export default {
 		}
 	},
 
-	setup(props) {
+	emits: ["update:partidaSeleccionada"],
 
+	setup(props, { emit }) {
+
+		const router = useRouter();
+
+		const refreshPage = () => {
+			router.go(0);
+		};
+		
 		const successMessage = ref('');
     const errorMessage = ref('');
 
 		const partida = ref([]);
 		const partidas = inject("partidas"); // Inyectar el array 'partidas' de Partidas.vue
 		const partidaSeleccionada = props.partidaSeleccionada;
-
+    
 		const route = useRoute();	
 		const procesoId = route.params.procesoId;
 
@@ -264,6 +272,27 @@ export default {
 
     const mesesDisponibles = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
 
+		const getTrimestres = (rows) => {
+			const trimestres = { t1: 0, t2: 0, t3: 0, t4: 0 };
+			
+			rows.forEach(row => {
+				const mes = row.mes_seleccionado.toLowerCase();
+				const monto = parseFloat(row.monto) || "";
+
+				if (['enero', 'febrero', 'marzo'].includes(mes)) {
+					trimestres.t1 += monto;
+				} else if (['abril', 'mayo', 'junio'].includes(mes)) {
+					trimestres.t2 += monto;
+				} else if (['julio', 'agosto', 'septiembre'].includes(mes)) {
+					trimestres.t3 += monto;
+				} else if (['octubre', 'noviembre', 'diciembre'].includes(mes)) {
+					trimestres.t4 += monto;
+				}
+			});
+
+			return trimestres;
+		};
+
 		const initialFormData = {
       programatica_seleccionada: "",
       objeto_gasto: "",
@@ -294,50 +323,103 @@ export default {
 				objeto_gasto: formData.objeto_gasto,
 				fuente: formData.fuente_seleccionada,
 				rowsCompromiso: formData.rowsCompromiso.map(row => ({
-					month: row.mes_seleccionado,
+					mes_seleccionado: row.mes_seleccionado,
 					monto: row.monto,
 				})),
 				rowsDevengado: formData.rowsDevengado.map(row => ({
-					month: row.mes_seleccionado,
+					mes: row.mes_seleccionado,
 					monto: row.monto,
 				})),
+				trimestresCompromiso: getTrimestres(formData.rowsCompromiso),
+  			trimestresDevengado: getTrimestres(formData.rowsDevengado),
 			};
 
-			if (partidas) {
-				console.log(procesoId);
+			const payloadSinId = {
+				procesoId: procesoId,
+				programatica: formData.programatica_seleccionada,
+				objeto_gasto: formData.objeto_gasto,
+				fuente: formData.fuente_seleccionada,
+				rowsCompromiso: formData.rowsCompromiso.map(row => ({
+					mes_seleccionado: row.mes_seleccionado,
+					monto: row.monto,
+				})),
+				rowsDevengado: formData.rowsDevengado.map(row => ({
+					mes_seleccionado: row.mes_seleccionado,
+					monto: row.monto,
+				})),
+				trimestresCompromiso: getTrimestres(formData.rowsCompromiso),
+  			trimestresDevengado: getTrimestres(formData.rowsDevengado),
+			};
+
+			if(partidaSeleccionada) {
+				console.log("editando partida seleccionada");
+				console.log(partidaSeleccionada.id);
+
+						const data = JSON.parse(localStorage.getItem('partidas_'+procesoId));
+						//console.log(data);
+
+						// Verificar si el id está presente en los datos
+						const index = data.findIndex(item => item.id === partidaSeleccionada.id);
+						
+						if (index !== -1) {
+            // Actualizar los datos de la partida
+						data[index] = { ...data[index], ...payloadSinId };
+							
+							// Guardar los cambios en localStorage
+							localStorage.setItem('partidas_'+procesoId, JSON.stringify(data));
+
+							// Actualizar las partidas en la variable reactiva
+							partidas.value[index] = { ...partidas.value[index], ...payloadSinId };
+							actualizarPartidaSeleccionada(payloadSinId);
+							refreshPage();
+							//console.log("partida seleccionada " + JSON.stringify(partidaSeleccionada));
+							console.log(`Partida con ID ${partidaSeleccionada.id}  modificada`);
+						}
+
+					closeModal('EditarPartida_'+partidaSeleccionada.id);			
+					
+			} else {
+				console.log("creando nueva partida");
 				localStorage.setItem("partidas_" + procesoId, JSON.stringify(partidas.value));
 				partidas.value.push(payload);
+				closeModal('nuevaPartida');			
 			}
-			
+
 			resetForm();
-			closeModal();			
+    };
+
+		const actualizarPartidaSeleccionada = (partidaActualizada) => {
+			emit("update:partidaSeleccionada", { ...partidaActualizada });
     };
 
 		watch(
 			() => props.partidaSeleccionada, 
 			(nuevaPartida) => {
+				//console.log("pp" + JSON.stringify(partidaSeleccionada));
 				if (nuevaPartida) {
+					//console.log(nuevaPartida);
 					// Actualiza formData con los valores de la partida seleccionada
 					formData.programatica_seleccionada = nuevaPartida.programatica || "";
 					formData.objeto_gasto = nuevaPartida.objeto_gasto || "";
 					formData.fuente_seleccionada = nuevaPartida.fuente || "";
 
-					// Copia rowsCompromiso y rowsDevengado si existen
-					formData.rowsCompromiso = nuevaPartida.rowsCompromiso?.map((row, index) => ({
-						id: index + 1,
-						mes_seleccionado: row.mes_seleccionado || "",
-						monto: row.monto || "",
-					})) || [
-						{ id: 1, mes_seleccionado: "", monto: "" },
-					];
+					//console.log(formData);
+					formData.rowsCompromiso.splice(0, formData.rowsCompromiso.length, ...(
+						nuevaPartida.rowsCompromiso?.map((row, index) => ({
+							id: index + 1,
+							mes_seleccionado: row.mes_seleccionado || "",
+							monto: row.monto || "",
+						})) || [{ id: 1, mes_seleccionado: "", monto: "" }]
+					));
 
-					formData.rowsDevengado = nuevaPartida.rowsDevengado?.map((row, index) => ({
-						id: index + 1,
-						mes_seleccionado: row.mes_seleccionado || "",
-						monto: row.monto || "",
-					})) || [
-						{ id: 1, mes_seleccionado: "", monto: "" },
-					];
+					// Actualiza rowsDevengado
+					formData.rowsDevengado.splice(0, formData.rowsDevengado.length, ...(
+						nuevaPartida.rowsDevengado?.map((row, index) => ({
+							id: index + 1,
+							mes_seleccionado: row.mes_seleccionado || "",
+							monto: row.monto || "",
+						})) || [{ id: 1, mes_seleccionado: "", monto: "" }]
+					));
 				}
 			},
 			{ immediate: true, deep: true } // Ejecuta el watch inmediatamente y permite observar objetos anidados
@@ -348,8 +430,8 @@ export default {
 			return Math.floor(Math.random() * 1000);
 		};
 
-		const closeModal = () => {
-			const modalElement = document.getElementById('nuevaPartida');
+		const closeModal = (name) => {
+			const modalElement = document.getElementById(name);
 				const modalInstance = bootstrap.Modal.getInstance(modalElement) || new bootstrap.Modal(modalElement);
 				modalInstance.hide();
 		};
@@ -376,6 +458,7 @@ export default {
 			eliminarFila,
 			procesoId,
 			partidaSeleccionada,
+			actualizarPartidaSeleccionada,
     }
 
 	}

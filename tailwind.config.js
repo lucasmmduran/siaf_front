@@ -1,5 +1,8 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+  corePlugins: {
+    preflight: false, // Desactiva los estilos base
+  },
   prefix: 'tw-',
   content: [
     './index.html',  // Archivo HTML principal

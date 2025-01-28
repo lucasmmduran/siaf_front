@@ -1,5 +1,5 @@
 <template>
-	<form id="formPlanificacion" action="" class="mb-3 mt-20">
+	<form id="formPlanificacion" action="" class="mb-3 tw-mt-28">
 		
 		<PlanHeader :planId="planId"></PlanHeader>
 
@@ -108,9 +108,9 @@
 							</table>
 						</div>
 
-						<!-- <div class="col-12">
+						<div class="col-12 tw-opacity-25 tw-cursor-not-allowed tw-pointer-events-none">
 							<Partidas></Partidas>
-						</div> -->
+						</div>
 
 						<div class="col-11 d-flex justify-content-end">
 							<span>
@@ -202,7 +202,7 @@ export default {
 				formData.tipo_de_tasa_seleccionada = "";
 				formData.tasa_plan = "";
 
-				router.push({ path: `/planes/${planId}/procesos` })
+				router.push({ path: `/planes/${planId}/procesos/${procesoId}/edit` })
     };
 
 		

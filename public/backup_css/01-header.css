@@ -354,7 +354,7 @@
   /*FIN JUMBOTRON*/
 
   /* ESTILOS DEL FORMULARIO DE SIAF LOCAL*/
-header.formulario-header .header {
+header.formulario-header {
     position: fixed;
     top: 0;
     z-index: 1000;
@@ -362,7 +362,7 @@ header.formulario-header .header {
   }
   
   .header-planificacion {
-    position: fixed;
+    /* position: fixed; */
     top: 64px;
     z-index: 999;
     width: 100%;
@@ -375,10 +375,10 @@ header.formulario-header .header {
     align-items: center;
   }
   
-  .header-title {
+  .header-planificacion h3 {
     color: #242C4F;
     font-weight: 700;
-    padding-top: 12px;
+    padding-top: 18px;
     padding-bottom: 12px;
     font-size: 24px;
   }

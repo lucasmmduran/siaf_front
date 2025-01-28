@@ -1,11 +1,9 @@
 
 /* estilos para las tablas */
-td, tr {
-  vertical-align: middle !important;
-}
 .cantidad-registros .form-label {
     margin-bottom: 0px;
     font-weight: 500;
+    margin-left: 12px;
   }
   
   @media (max-width: 766.98px) {
@@ -13,7 +11,8 @@ td, tr {
       display: flex;
       justify-content: center;
       align-items: center;
-      margin-bottom: 8px;
+      margin-top: 16px;
+      margin-bottom: 16px;
     }
   }
   
@@ -22,8 +21,8 @@ td, tr {
       display: flex;
       justify-content: start;
       align-items: center;
-      margin-top: 8px;
-      margin-bottom: 8px;
+      margin-top: 16px;
+      margin-bottom: 16px;
     }
   }
   
@@ -45,13 +44,6 @@ td, tr {
   border: none !important;
   color: #242C4F;
   font-weight: 600;
-  border-radius: 8px;
-  }
-
-  ul.pagination li a:hover, ul.pagination li a:active {
-    background-color: #4C4C4C;
-    border-radius: 8px;
-    color: #FFFFFF;
   }
   
   ul.pagination li.page-item.active a.page-link{
@@ -63,8 +55,9 @@ td, tr {
   font-size: 12px;
   color: #4C4C4C;
   text-align: start;
-  margin-bottom: 8px;
-  margin-top: 4px;
+  margin-bottom: 16px;
+  margin-top: 8px;
+  margin-left: 12px;
   }
   
   .text-ellipsis {
@@ -90,8 +83,8 @@ td, tr {
   
   /*tabla procesos SIAF*/
   .tabla-procesos-siaf {
-    padding: 0px 6px !important;
-    margin: 0px 6px !important;
+    padding: 0px 12px !important;
+    margin: 0px 12px !important;
   }
   
   .tabla-procesos-siaf .row {
@@ -102,18 +95,19 @@ td, tr {
   
   table {
     font-family: "Montserrat", sans-serif;
+    margin: 0px 12px !important;
   }
   
   table.table.table-bordered.table-striped {
-    max-width: calc(100%) !important;
+    max-width: calc(100% - 24px) !important;
   }
 
   table.table.table-bordered {
-    max-width: calc(100%) !important;
+    max-width: calc(100% - 24px) !important;
   }
 
   table.tabla-trimestral {
-    max-width: calc(100%) !important;
+    max-width: calc(100% - 24px) !important;
   }
 
   .tabla-procesos-siaf h5 {
@@ -177,20 +171,20 @@ td, tr {
     background-color: #D4D4D4; /* Color fijo para el total */
     cursor: default; /* Sin efecto de puntero */
   }
-  #mainTable tbody tr.fila-total:hover {
-    background-color: #D4D4D4 !important; /* Sin efecto de hover */
-    border: 1px solid #E2E2E2 !important;
-    cursor: default !important;
-  }
-  #mainTable tbody tr:not(.selected):hover {
-    background-color: #3193371A !important; /* Verde más claro al hacer hover */
-    border: 2px solid #319337;
-    cursor: pointer;
-  }
-  #mainTable tbody tr.selected {
-    border: 2px solid #319337;
-    background-color: #3193371A !important;
-  }
+  /*   #mainTable tbody tr.fila-total:hover {
+      background-color: #D4D4D4 !important; 
+      border: 1px solid #E2E2E2 !important;
+      cursor: default !important;
+    }
+    #mainTable tbody tr:not(.selected):hover {
+      background-color: #3193371A !important; 
+      border: 2px solid #319337;
+      cursor: pointer;
+    }
+    #mainTable tbody tr.selected {
+      border: 2px solid #319337;
+      background-color: #3193371A !important;
+    } */
   #detailsContainer {
     display: flex;
     flex-direction: column;

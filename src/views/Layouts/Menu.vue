@@ -8,20 +8,6 @@
       >
         Planes
       </RouterLink>
-      <!-- <RouterLink
-        to="/procesos"
-        class="tw-border-b pb-4 tw-text-center tw-border-gray-300"
-        :class="{'tw-text-active tw-font-bold': isActive('/procesos')}"
-      >
-        Procesos
-      </RouterLink>
-      <RouterLink
-        to="/partidas"
-        class="tw-pb-4 tw-text-center"
-        :class="{'tw-text-active tw-font-bold': isActive('/partidas')}"
-      >
-        Partidas
-      </RouterLink> -->
     </div>
   </div>
 </template>

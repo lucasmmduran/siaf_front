@@ -1,0 +1,87 @@
+/*FORM LOGIN*/
+.form-title {
+    padding-top: 24px;
+    padding-bottom: 24px;
+  }
+  .form-title h3 {
+    font-size: 22px;
+  }
+  .form-title p {
+    font-size: 14px;
+    padding-top: 8px;
+  }
+  .form-title a {
+    color: #3E5A7E;
+    font-family: "Montserrat", sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+  }
+  .form-title a:hover {
+    color: #6A1B99;
+  }  
+  .bg-gris4 {
+    background-color: #F2F2F2;
+  }
+  .contenedor-formulario {
+    padding-top: 36px;
+    padding-bottom: 36px;
+    border-radius: 8px;
+    margin-bottom: 64px;
+  }
+  .contenedor-formulario a {
+    color: #3E5A7E;
+    font-family: "Montserrat", sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+  }
+  .contenedor-formulario a:hover {
+    color: #6A1B99;
+  }
+  .contenedor-formulario p {
+    font-size: 14px;
+    font-weight: 500;
+    color: #333333;
+  }  
+  .contenedor-formulario label {
+    font-size: 14px;
+    font-family: "Montserrat", sans-serif;
+    font-weight: 500;
+  }
+  .espacio-form {
+    height: 96px;
+  }
+  /*FIN FORM LOGIN*/
+
+  
+/* ESTILOS DE ERROR Y OK*/
+.visually-hidden {
+    display: none;
+  }
+  
+  .letra-error, #invalidPass {
+    font-family: "Montserrat", sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: #FF0000;
+  }
+  
+  .campo-error {
+    border: 1px solid #FF0000;
+    border-radius: 8px;
+    box-shadow: 0px 2px 5px 0px #C62828;
+  }
+  
+  .campo-ok {
+    border: 1px solid #319337;
+    border-radius: 8px;
+    box-shadow: 0px 2px 5px 0px #319337;
+  }
+  
+  .letra-ok, #validPass {
+    font-family: "Montserrat", sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: #319337;
+  }
+  /* FIN ESTILOS DE ERROR Y OK */
+  

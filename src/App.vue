@@ -50,10 +50,11 @@
       
     </header>
 
-    <div v-if="authStore.isAuthenticated">
+    <!-- <div v-if="authStore.isAuthenticated">
       <Menu></Menu>
-    </div>
-    <div class="tw-flex-1" :class="(authStore.isAuthenticated) ? 'tw-pt-28' : ''">
+    </div> -->
+    <!-- <div class="tw-flex-1" :class="(authStore.isAuthenticated) ? 'tw-pt-28' : ''"> -->
+    <div :class="(authStore.isAuthenticated) ? 'tw-pt-28' : ''">
       <router-view />
     </div>
     

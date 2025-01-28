@@ -14,7 +14,8 @@
           <!-- <div id="detailsContainer"> -->
           <FormPartida
             :partidaSeleccionada="partidaSeleccionada"
-           :endpoint="apiRoutes.enviarCabecera"
+            :endpoint="apiRoutes.enviarCabecera"
+            @update:partidaSeleccionada="actualizarPartida"
           />
         </div>
       </div>
@@ -45,13 +46,18 @@ export default {
 		}
 	},
 
-
-  setup(props) {
+  emits: ["update:partidaSeleccionada"],
+  setup(props, { emit }) {
     const partidaSeleccionada = props.partidaSeleccionada;
+
+    const actualizarPartida = (nuevaPartida) => {
+      emit("update:partidaSeleccionada", nuevaPartida);
+    };
     
     return {
       partidaSeleccionada,
-      apiRoutes
+      apiRoutes,
+      actualizarPartida
     }
   }
 }

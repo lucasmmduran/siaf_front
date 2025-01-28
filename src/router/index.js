@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 import { useAuthStore } from '@/stores/auth';
 
 import LoginPage from '@/views/Pages/Login/LoginPage.vue';
+import Dashboard from '@/views/Pages/Dashboard.vue';
 
 import Planes from '@/views/Pages/Planes/Index.vue';
 import Procesos from '@/views/Pages/Procesos/Index.vue';
@@ -14,6 +15,7 @@ import Test from '@/views/Pages/Test.vue';
 
 const routes = [
   { path: '/', name: 'Login', component: LoginPage },
+  { path: '/dashboard', name: 'Dashboard', component: Dashboard, meta: { requiresAuth: true} },
   { path: '/planes', name: 'Planes', component: Planes, meta: { requiresAuth: true} },
   { path: '/planes/:id/procesos', name: 'Procesos', component: Procesos, meta: { requiresAuth: true} },
   { path: '/planes/:id/procesos/create', name: 'AgregarProceso', component: AgregarProceso, meta: { requiresAuth: true} }, 

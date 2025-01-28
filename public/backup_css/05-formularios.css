@@ -74,11 +74,6 @@
   }
   
   /* ESTILO LABEL */
-  .cantidad-registros .form-control {
-    height: 42px !important;
-    width: 60px !important;
-  }
-
   .form-label {
     font-family: "Montserrat", sans-serif;
     font-size: 14px;
@@ -296,34 +291,7 @@
     color: #333333 !important;
     border-radius: 8px;
   }
-  /* FORM SELECT EN TABLA */
-  #dataForm .tabla-trimestral .single-select-header.form-select {
-    height: 32px !important;
-  }
-  #dataForm .tabla-trimestral .single-select-header {
-    padding-top: 0px !important;
-    padding-bottom: 0px !important;
-    border: none !important;
-    font-size: 14px !important;
-  }
-  #dataForm .tabla-trimestral .single-select-options {
-    border: none !important;
-    box-shadow: none !important;
-  }
-  #dataForm .tabla-trimestral .campo-foco .single-select-header {
-    border: none !important;
-    box-shadow: none !important;
-  }
-  #dataForm .tabla-trimestral .custom-select.campo-foco {
-    border: none !important;
-    border-radius: 8px !important;
-    box-shadow: none !important;
-  }
-  #dataForm .tabla-trimestral td {
-    padding-top: 6px !important;
-    padding-bottom: 6px !important;
-  }
-
+  
   /* FORM SELECT ÚNICO */
   .custom-select {
     position: relative;

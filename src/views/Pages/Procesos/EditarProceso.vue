@@ -1,5 +1,5 @@
 <template>
-	<form id="formPlanificacion" action="" class="mb-3 mt-20">
+	<form id="formPlanificacion" action="" class="mb-3 tw-mt-28">
 		
 		<PlanHeader :planId="planId"></PlanHeader>
 
@@ -148,7 +148,7 @@ export default {
 		const route = useRoute();	
 		const router = useRouter();
 		const planId = route.params.id;
-
+		const procesoId = route.params.procesoId;
 		
 		const proceso = ref([]);
 
@@ -173,10 +173,15 @@ export default {
 		const errorMessage = ref('');
 		
 		const sendData = () => {
-			proceso.value.push({
-					id: procesoId,
-					plan_id: planId,
-          concepto: formData.concepto,
+			const data = JSON.parse(localStorage.getItem("procesos_" + planId));
+    if (data) {
+      // Encontrar el índice del proceso a editar
+      const index = data.findIndex(p => p.id == procesoId);
+			
+			if (index !== -1) {
+				data[index] = {
+          ...data[index],
+					concepto: formData.concepto,
 					plurianual: formData.plurianual,
 					no_presupuestado: formData.no_presupuestado,
 					identificacion: formData.identificacion,
@@ -185,20 +190,14 @@ export default {
 					moneda_seleccionada: formData.moneda_seleccionada,
 					tipo_de_tasa_seleccionada: formData.tipo_de_tasa_seleccionada,
 					tasa_plan: formData.tasa_plan,
-          //monto_anual: plan_seleccionado.value,
-        });
-        
-				formData.concepto = "";
-				formData.plurianual = "";
-				formData.no_presupuestado = "";
-				formData.identificacion = "";
-				formData.nota_impulso = "";
-				formData.descripcion = "";
-				formData.moneda_seleccionada = "";
-				formData.tipo_de_tasa_seleccionada = "";
-				formData.tasa_plan = "";
+				};
+			
+				localStorage.setItem("procesos_" + planId, JSON.stringify(data));
 
 				router.push({ path: `/planes/${planId}/procesos` })
+				//router.push({ path: `/planes/${planId}/procesos/${procesoId}/edit` })
+			}
+			}
     };
 
 		
@@ -212,16 +211,15 @@ export default {
     );
 
 		onMounted(() => {
-			const procesosGuardados = localStorage.getItem("procesos_" + planId);
-			if (procesosGuardados) {
-				const parsedProcesos = JSON.parse(procesosGuardados);
-
-				if (parsedProcesos.length > 0) {
-					const primerProceso = parsedProcesos[0];
+			const data = JSON.parse(localStorage.getItem("procesos_" + planId));
+			if (data) {
+				// Buscar el proceso específico usando procesoId
+				const procesoEncontrado = data.find(item => item.id == procesoId);
+				if (procesoEncontrado) {
+					// Asignar los valores del proceso encontrado a formData
 					Object.keys(formData).forEach((key) => {
-						formData['id'] = primerProceso['id'];
-						if (primerProceso.hasOwnProperty(key)) {
-							formData[key] = primerProceso[key];
+						if (procesoEncontrado.hasOwnProperty(key)) {
+							formData[key] = procesoEncontrado[key];
 						}
 					});
 				}

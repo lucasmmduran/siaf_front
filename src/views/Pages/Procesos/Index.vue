@@ -3,8 +3,8 @@
 
 		<PlanHeader :planId="planId"></PlanHeader>
 
-<section class="formulario-planificacion">
-		<div class="container">
+		<section class="formulario-planificacion tw-mt-28">
+			<div class="container">
 				<div class="row">
 
 						<div class="col-12">
@@ -68,9 +68,10 @@
 														</button>
 													</RouterLink>
 										</span>
-										<span class="me-2 iconos">
+										<!-- <span class="me-2 iconos">
 											<button type="button" class="btn-icon visualizar" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Ver detalle"></button>
-										</span></td>
+										</span> -->
+									</td>
 								</tr>
 								
 							</tbody>
@@ -79,7 +80,7 @@
 						<div class="text-registros">
 							<p>Mostrando registros del 1 al 5 de un total de {{ procesos.length }} registros.</p>
 						</div>
-						<nav aria-label="Page navigation example">
+						<!-- <nav aria-label="Page navigation example">
 							<ul class="pagination justify-content-center">
 								<li class="page-item disabled">
 									<a class="page-link"><i class="fa-solid fa-chevron-left"></i></a>
@@ -92,90 +93,138 @@
 									<a class="page-link" href="#"><i class="fa-solid fa-chevron-right"></i></a>
 								</li>
 							</ul>
-						</nav>
+						</nav> -->
 
 						<div class="col-12 tw-mt-10">
-                          <div class="tabla-procesos-siaf">
-                            <div class="row">
-                              <div class="col-10 d-flex justify-content-center align-items-center">
-                                <h5>Resumen presupuestario</h5>
-                              </div>
-                              <div class="col-2 d-flex justify-content-end">
-                                <span class="me-2 iconos"><button type="button" class="btn-icon print-negativo fondo-azul" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Imprimir"></button></span>
-                                <span class="me-2 iconos"><button type="button" class="btn-icon excel-negativo fondo-azul" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Descargar XLSX"></button></span>
-                              </div>
-                            </div>
-                          </div>
-                          <table class="table table-bordered table-striped">
-                            <thead>
-                              <tr class="title-col">
-                                <th scope="col">FF</th>
-                                <th scope="col">Programática</th>
-                                <th scope="col">Objeto gasto</th>
-                                <th scope="col">T1</th>
-                                <th scope="col">T2</th>
-                                <th scope="col">T3</th>
-                                <th scope="col">T4</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              <tr>
-                                <td>11</td>
-                                <td>10.01.01.001</td>
-                                <td>2.3.5.0</td>
-                                <td class="text-end">$ 1.200.000,00</td>
-                                <td class="text-end">$ 900.000,00</td>
-                                <td class="text-end">$ 300.000,00</td>
-                                <td class="text-end">$ 12.000,02</td>
-                              </tr>
-                              <tr>
-                                <td>12</td>
-                                <td>10.01.01.001</td>
-                                <td>2.3.5.0</td>
-                                <td class="text-end">$ 1.200.000,00</td>
-                                <td class="text-end">$ 900.000,00</td>
-                                <td class="text-end">$ 300.000,00</td>
-                                <td class="text-end">$ 12.000,02</td>
-                              </tr>
-                              <tr>
-                                <td>13</td>
-                                <td>10.01.01.001</td>
-                                <td>2.3.5.0</td>
-                                <td class="text-end">$ 1.200.000,00</td>
-                                <td class="text-end">$ 900.000,00</td>
-                                <td class="text-end">$ 300.000,00</td>
-                                <td class="text-end">$ 12.000,02</td>
-                              </tr>
-                              <tr class="fila-total">
-                                <th colspan="3" scope="col" class="total-monto">Total</th>
-                                <th class="text-end">$ 6350.000,00</th>
-                                <th class="text-end">$ 3350.000,00</th>
-                                <th class="text-end">$ 1548.000,00</th>
-                                <th class="text-end">$ 350.000,00</th>
-                              </tr>
-                            </tbody>
-                          </table>
-                        </div>
-                        <div class="text-registros">
-                          <p>Mostrando registros del 1 al 3 de un total de 3 registros.</p>
-                        </div>
-                        <nav aria-label="Page navigation example">
-                          <ul class="pagination justify-content-center">
-                            <li class="page-item disabled">
-                              <a class="page-link"><i class="fa-solid fa-chevron-left"></i></a>
-                            </li>
-                            <li class="page-item active" aria-current="page"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item">
-                              <a class="page-link" href="#"><i class="fa-solid fa-chevron-right"></i></a>
-                            </li>
-                          </ul>
-                        </nav>
-
-
+								<div class="tabla-procesos-siaf">
+									<div class="row">
+										<div class="col-10 d-flex justify-content-center align-items-center">
+											<h5>Resumen presupuestario</h5>
+										</div>
+										<div class="col-2 d-flex justify-content-end">
+											<span class="me-2 iconos"><button type="button" class="btn-icon print-negativo fondo-azul" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Imprimir"></button></span>
+											<span class="me-2 iconos"><button type="button" class="btn-icon excel-negativo fondo-azul" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Descargar XLSX"></button></span>
+										</div>
+									</div>
+								</div>
+								<table class="table table-bordered table-striped">
+									<thead>
+										<tr class="title-col">
+											<th scope="col">FF</th>
+											<th scope="col">Programática</th>
+											<th scope="col">Objeto gasto</th>
+											<th scope="col">T1</th>
+											<th scope="col">T2</th>
+											<th scope="col">T3</th>
+											<th scope="col">T4</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr v-for="(r, index) in resumenTributario" :key="index">
+											<td>{{ r.fuente }}</td>
+											<td>{{ r.programatica }}</td>
+											<td>{{ r.objeto_gasto }}</td>
+											<td class="text-end">{{ r.trimestresCompromiso.t1 }}</td>
+											<td class="text-end">{{ r.trimestresCompromiso.t2 }}</td>
+											<td class="text-end">{{ r.trimestresCompromiso.t3 }}</td>
+											<td class="text-end">{{ r.trimestresCompromiso.t4 }}</td>
+										</tr>
+										
+										<!-- <tr class="fila-total">
+											<th colspan="3" scope="col" class="total-monto">Total</th>
+											<th class="text-end">$ 6350.000,00</th>
+											<th class="text-end">$ 3350.000,00</th>
+											<th class="text-end">$ 1548.000,00</th>
+											<th class="text-end">$ 350.000,00</th>
+										</tr> -->
+										
+									</tbody>
+								</table>
 						</div>
+						<div class="text-registros">
+							<p>Mostrando {{ resumenTributario.length }} registros.</p>
 						</div>
-						</section>  
-						
+
+						<!-- <div class="col-12 tw-mt-10">
+								<div class="tabla-procesos-siaf">
+									<div class="row">
+										<div class="col-10 d-flex justify-content-center align-items-center">
+											<h5>Resumen presupuestario</h5>
+										</div>
+										<div class="col-2 d-flex justify-content-end">
+											<span class="me-2 iconos"><button type="button" class="btn-icon print-negativo fondo-azul" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Imprimir"></button></span>
+											<span class="me-2 iconos"><button type="button" class="btn-icon excel-negativo fondo-azul" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Descargar XLSX"></button></span>
+										</div>
+									</div>
+								</div>
+								<table class="table table-bordered table-striped">
+									<thead>
+										<tr class="title-col">
+											<th scope="col">FF</th>
+											<th scope="col">Programática</th>
+											<th scope="col">Objeto gasto</th>
+											<th scope="col">T1</th>
+											<th scope="col">T2</th>
+											<th scope="col">T3</th>
+											<th scope="col">T4</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td>11</td>
+											<td>10.01.01.001</td>
+											<td>2.3.5.0</td>
+											<td class="text-end">$ 1.200.000,00</td>
+											<td class="text-end">$ 900.000,00</td>
+											<td class="text-end">$ 300.000,00</td>
+											<td class="text-end">$ 12.000,02</td>
+										</tr>
+										<tr>
+											<td>12</td>
+											<td>10.01.01.001</td>
+											<td>2.3.5.0</td>
+											<td class="text-end">$ 1.200.000,00</td>
+											<td class="text-end">$ 900.000,00</td>
+											<td class="text-end">$ 300.000,00</td>
+											<td class="text-end">$ 12.000,02</td>
+										</tr>
+										<tr>
+											<td>13</td>
+											<td>10.01.01.001</td>
+											<td>2.3.5.0</td>
+											<td class="text-end">$ 1.200.000,00</td>
+											<td class="text-end">$ 900.000,00</td>
+											<td class="text-end">$ 300.000,00</td>
+											<td class="text-end">$ 12.000,02</td>
+										</tr>
+										<tr class="fila-total">
+											<th colspan="3" scope="col" class="total-monto">Total</th>
+											<th class="text-end">$ 6350.000,00</th>
+											<th class="text-end">$ 3350.000,00</th>
+											<th class="text-end">$ 1548.000,00</th>
+											<th class="text-end">$ 350.000,00</th>
+										</tr>
+									</tbody>
+								</table>
+						</div>
+						<div class="text-registros">
+							<p>Mostrando registros del 1 al 3 de un total de 3 registros.</p>
+						</div> -->
+						<!-- <nav aria-label="Page navigation example">
+							<ul class="pagination justify-content-center">
+								<li class="page-item disabled">
+									<a class="page-link"><i class="fa-solid fa-chevron-left"></i></a>
+								</li>
+								<li class="page-item active" aria-current="page"><a class="page-link" href="#">1</a></li>
+								<li class="page-item">
+									<a class="page-link" href="#"><i class="fa-solid fa-chevron-right"></i></a>
+								</li>
+							</ul>
+						</nav> -->
+					</div>
+
+			</div>
+		</section>
 						
 	</main>
 </template>
@@ -198,23 +247,45 @@ export default {
 		const procesos = ref([]);
 		const route = useRoute();
 		const planId = route.params.id;
+		const resumenTributario = ref([]);
 
 		onMounted(() => {
-			console.log(procesoId)
+			
 			const procesosGuardados = localStorage.getItem("procesos_"+planId);
       if (procesosGuardados) {
-        procesos.value = JSON.parse(procesosGuardados);
+				procesos.value = JSON.parse(procesosGuardados);
       }
+
+			const partidasGuardadas = [];
+
+			procesos.value.map((proceso) => {
+				const partidas = localStorage.getItem("partidas_" + proceso.id);
+				if (partidas) {
+					// Si existe, parseamos el JSON y lo agregamos al array de partidasGuardadas
+					const partidasParseadas = JSON.parse(partidas);
+
+					// Si hay más de una partida, agregamos todas
+					if (Array.isArray(partidasParseadas)) {
+						partidasGuardadas.push(...partidasParseadas); // Añadimos todas las partidas al array
+					} else {
+						partidasGuardadas.push(partidasParseadas); // Si es una sola partida, la añadimos directamente
+					}
+				}
+			});
+
+			resumenTributario.value = partidasGuardadas.filter(item => item !== null); // filtrado de partidas nulls
+
+			//console.log(resumenTributario.value[1].procesoId);
+
+			
     })
 
-		/* const deleteProceso = (proceso) => {
-			localStorage.clear("procesos"+planId);
-		} */
 
 		return {
 			procesos,
 			planId,
 			PlanHeader,
+			resumenTributario,
 		}
 	}
 }

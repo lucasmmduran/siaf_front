@@ -41,20 +41,25 @@
 								<td class="text-center">{{ p.fuente }}</td>
 								<td>{{ p.programatica }}</td>
 								<td>{{ p.objeto_gasto }}</td>
-								<td class="text-end">{{ p.t1 }}</td>
-								<td class="text-end">{{ p.t2 }}</td>
-								<td class="text-end">{{ p.t3 }}</td>
-								<td class="text-end">{{ p.t4 }}</td>
+								<td class="text-end">{{ p.trimestresCompromiso?.t1 }}</td>
+								<td class="text-end">{{ p.trimestresCompromiso?.t2 }}</td>
+								<td class="text-end">{{ p.trimestresCompromiso?.t3 }}</td>
+								<td class="text-end">{{ p.trimestresCompromiso?.t4 }}</td>
 								<td class="">
-									<span class="me-2 iconos" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Ver detalle">
+									<!-- <span class="me-2 iconos" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Ver detalle">
 										<button type="button" class="btn-icon visualizar" data-bs-toggle="modal" data-bs-target="#visualizarUno"></button>
-									</span>
+									</span> -->
 									<span class="me-2 iconos" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Editar">
 										<button type="button" class="btn-icon editar" data-bs-toggle="modal" :data-bs-target="'#EditarPartida_'+p.id"></button>
 									</span>
-									<EditarPartida :partidaSeleccionada="p" />
+									<EditarPartida 
+										:partidaSeleccionada="p"
+										@update:partidaSeleccionada="actualizarPartida"
+									/>
 									<span class="me-2 iconos">
-										<EliminarPartida @eliminarPartida="eliminarPartida" :partida="p" />
+										<EliminarPartida 
+											@eliminarPartida="eliminarPartida" 
+											:partida="p" />
 									</span>
 								</td>
 							</tr>
@@ -128,6 +133,13 @@ export default {
 		const procesoId = route.params.procesoId;
 		const partidaSeleccionada = ref([]);
 
+		const actualizarPartida = (nuevaPartida) => {
+			console.log("q viene?" + JSON.stringify(nuevaPartida));
+			partidaSeleccionada.value = { ...nuevaPartida }; // Asignar un nuevo objeto reactivo
+  		console.log("Nueva partida: " + JSON.stringify(partidaSeleccionada.value));
+
+    };
+
 		const eliminarPartida = (id) => {
       const index = partidas.value.findIndex(partida => partida.id === id);
       if (index !== -1) {
@@ -162,6 +174,7 @@ export default {
 			procesoId,
 			partidaSeleccionada,
 			eliminarPartida,
+			actualizarPartida,
 		}
 	}
 }
