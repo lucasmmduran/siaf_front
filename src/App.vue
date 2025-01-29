@@ -1,5 +1,5 @@
 <template>
-  <div id="app"> 
+  <div class="relative tw-flex tw-flex-col tw-min-h-screen"> 
     
     <header class="formulario-header">
       <section class="header"> 
@@ -23,7 +23,7 @@
                     <img src="/img/icono_user_relleno_negativo-hover.svg" class="icono-focus d-none">
                   </div>
                   
-                  <div v-if="isDropdownOpen" class="absolute right-0 mt-2 w-84 bg-white shadow-lg rounded-md z-50">
+                  <div v-if="isDropdownOpen" class="tw-absolute tw-right-0 tw-mt-2 tw-w-84 tw-bg-white tw-shadow-lg tw-rounded-md tw-z-50">
                   <ul  class="dropdown-menu-user">
                     <li class="datosUsuario">
                       <span class="datosUsuario--title"> Pepe López - </span>
@@ -46,22 +46,17 @@
           
         </section>         
       </section>
-
-      
     </header>
 
-    <div v-if="authStore.isAuthenticated" class="flex space-x-2">
-      <div class="h-dvh pt-52 px-4 top-50 bg-gray-100 z-10">
-        <Menu></Menu> 
-      </div>
+      <!-- <div v-if="authStore.isAuthenticated">
+        <Menu></Menu>
+      </div> -->
+    <div class="tw-flex-1" :class="(authStore.isAuthenticated) ? 'tw-pt-28' : ''">
       <router-view />
     </div>
-    <div v-else>
-      <router-view />
-    </div>
-
-    <footer>
-      <section class="footer ">
+    
+    <footer class="tw-relative tw-bottom-0 tw-left-0 tw-w-full tw-bg-gray-800 tw-text-white tw-z-50 tw-mt-28">
+      <section class="footer">
         <section class="footer__nroversion">
           <div class="container">
             <div class="row">

@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import FormPartida from '@/views/Pages/Partidas/FormPartida.vue';
+import FormPartida from '@/views/Pages/Procesos/Partidas/FormPartida.vue';
 import { apiRoutes } from '@/config/api';
 
 export default {

@@ -1,7 +1,10 @@
 <template>
 	<main class="formulario-main">
 
-<section class="formulario-planificacion">
+		<PlanHeader :planId="planId"></PlanHeader>
+
+
+<section class="formulario-planificacion tw-mt-28">
 		<div class="container">
 				<div class="row">
 					<div v-if="errorMessage" class="col-12">
@@ -23,7 +26,7 @@
 									</div>
 									<div class="col-2 d-flex justify-content-end">
 										<span class="me-2 iconos">
-											<RouterLink to="/agregar-proceso">
+											<RouterLink :to="`/planes/${planId}/procesos/create`">
 												<button type="button" class="btn-icon add-negativo fondo-azul" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Cargar proceso"></button>
 											</RouterLink>
 										</span>
@@ -33,6 +36,7 @@
 								</div>
 							</div>
 						</div>
+						<div class="col-12">
 						<table class="table table-bordered table-striped">
 							<thead>
 								<tr class="title-col">
@@ -47,7 +51,7 @@
 							<tbody>
 								<tr v-for="p in procesos" :key="p.id">
 									<th class="numberID"><span>{{ p.id }}</span></th>
-									<td>{{ p.nombre }}</td>
+									<td>{{ p.concepto }}</td>
 									<td>{{ p.identificacion }}</td>
 									<td class="text-ellipsis" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip">
 										{{ p.descripcion }}</td>
@@ -58,6 +62,7 @@
 								
 							</tbody>
 						</table>
+					</div>
 						<div class="text-registros">
 							<p>Mostrando registros del 1 al 5 de un total de {{ procesos.length }} registros.</p>
 						</div>
@@ -83,27 +88,29 @@
 </template>
 
 
-<script>
+<script setup>
 import { ref, onMounted } from 'vue';
 import { apiRoutes } from '@/config/api';
 import axios from 'axios';
+import { useRoute } from 'vue-router';
+import PlanHeader from '@/views/Pages/Procesos/PlanHeader.vue';
 
-export default {
-
-	setup() {
+		const route = useRoute();
+		const planId = route.params.id;
 
 		const procesos = ref([]);
 		const errorMessage = ref('');
 
 		const getData = () => {
-			axios.get(apiRoutes.getProccess, {
+			axios.get(apiRoutes.planes_procesos_index, {
 				headers: {
 					Authorization: `Bearer ${localStorage.getItem('auth_token')}`
 				},
 			})
 			.then(response => {
-				console.log(response.data.data);
-				procesos.value = response.data.data;				
+				console.log("procesos " + JSON.stringify(response.data.data));
+				procesos.value = response.data.data;
+				
 			})
 			.catch(error => {
 				errorMessage.value = error.response?.data?.message || "An unknown error occurred.";
@@ -115,10 +122,11 @@ export default {
 			getData();
 		});
 
-		return {
-			procesos,
-		}
-	}
-}
 
 </script>
+
+<style scoped>
+main.formulario-main {
+	padding-top:0px !important;
+}
+</style>

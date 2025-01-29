@@ -1,39 +1,7 @@
 <template>
-	<main class="formulario-main w-10/12">
-
-			<section class="header-planificacion">
-				<div class="container">
-					<div class="row">
-						<div class="col-6">
-							<h3>Planificación de ejecución</h3>
-						</div>
-						<div class="col-6 text-end">
-							<h3>Nro RRHH-99988/2024</h3>
-						</div>
-					</div>
-				</div>
-				<section class="bg-gris4">
-					<div class="container">
-						<div class="row">
-							<div class="col-4">
-								<span><b>Plan:</b> -/-</span>
-							</div>
-							<div class="col-4 d-flex justify-content-center">
-								<span><b>Estado: </b><span class="enproceso">En proceso (18/12/2024)</span></span>
-							</div>
-							<div class="col-4 d-flex justify-content-end">
-								<span class="me-2"><button type="button" class="btn-icon print" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Imprimir"></button></span>
-								<span class="me-2"><button type="button" class="btn-icon excel" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Descargar XLSX"></button></span>
-								<span class="me-2"><button type="button" class="btn-icon pdf" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-custom-class="custom-tooltip" data-bs-title="Descargar PDF"></button></span>
-							</div>
-						</div>
-					</div>
-				</section>
-			</section>
-			
-
+	<main class="formulario-main">
 			<section class="tabla-plan">
-					<div class="container mx-auto px-4">
+					<div class="container">
 						<div class="row d-flex justify-content-center">
 							<div class="col-12">
 								<div class="cantidad-registros mt-1">
@@ -64,23 +32,39 @@
 											<th scope="col">Plan</th>
 											<th scope="col">Fecha de <br> ingreso</th>
 											<th scope="col">Fecha última <br>actualización</th>
+											<th scope="col">Acciones</th>
 										</tr>
 									</thead>
 									<tbody>
 										<tr v-for="p in planes">
 											<th class="numberID"><span>{{ p.id }}</span></th>
-											<td>{{ p.anio}}</td>
+											<td>{{ p.ejercicio }}</td>
 											<td>{{ p.unidad }}</td>
-											<td>{{ p.identificacion_plan }}</td>
-											<td>{{ p.nro_plan }}</td>
-											<td class="text-center">{{ p.fecha_ingreso }}</td>
-											<td class="text-center">{{ p.fecha_ult_actualizacion }}</td>
+											<td>{{ p.tipo_plan }}</td>
+											<td>{{ p.plan }}</td>
+											<td class="text-center">{{ formatDate(p.fecha_ingreso.date) }}</td>
+											<td class="text-center">{{ formatDate(p.fecha_ult_actualizacion.date) }}</td>
+											<td class="text-center">
+												<span class="me-2 iconos">
+													<RouterLink :to="`/planes/${p.id}/procesos`">
+														<button 
+															type="button" 
+															class="btn-icon editar" 
+															data-bs-toggle="tooltip" 
+															data-bs-placement="bottom" 
+															data-bs-custom-class="custom-tooltip" 
+															data-bs-title="Editar">
+														</button>
+													</RouterLink>
+													
+												</span>
+											</td>
 										</tr>
 										
 									</tbody>
 								</table>
 								<div class="text-registros">
-									<p>Mostrando registros del 1 al 1 de un total de {{ planes.length }} registros.</p>
+									<p>Mostrando {{ planes.length }} registros.</p>
 								</div>
 							</div>
 							<nav aria-label="Page navigation example">
@@ -124,8 +108,9 @@
 																id="select-ejercicio" 
 																label="Ejercicio" 
 																name="ejercicio" 
-																:options="anios" 
-																v-model="anio_seleccionado" 
+																:options="ejerciciosDb" 
+																v-model="anio_seleccionado"
+																labelField="id"
 															/>
                             </div>
                             <div class="col-10 mt-3">
@@ -133,8 +118,9 @@
 																id="select-unidad" 
 																label="Unidad" 
 																name="unidad" 
-																:options="unidades" 
-																v-model="unidad_seleccionada" 
+																:options="unidadesDb" 
+																v-model="unidad_seleccionada"
+																labelField="unidad"
 															/>
                             </div>
                             <div class="col-10 mt-3">
@@ -144,21 +130,23 @@
 																		id="select-plan-type" 
 																		label="Tipo Plan" 
 																		name="planType" 
-																		:options="identificacion_planes" 
-																		v-model="identificacion_plan_seleccionado" 
+																		:options="tipoPlanesDb" 
+																		v-model="identificacion_plan_seleccionado"
+																		labelField="tipo_plan"
 																	/>
 																		<Selector 
 																			class="col-6"
 																			id="select-plan" 
 																			label="Plan" 
 																			name="plan" 
-																			:options="planes_disponibles" 
+																			:options="planesDb" 
 																			v-model="plan_seleccionado" 
+																			labelField="plan"
 																		/>
                                     
                                 </div>
                             </div>
-                            <div class="col-10 mt-3">
+                            <!-- <div class="col-10 mt-3">
                                 <div class="row">
                                     <div class="col-6">
                                         <label class="form-label fw-normal" for="">Fecha de ingreso</label>
@@ -176,7 +164,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                   </form>
@@ -199,40 +187,36 @@
 	</main>
 </template>
 
-<script>
+<script setup>
 import { ref, onMounted } from 'vue';
 import { apiRoutes } from '@/config/api';
 import axios from 'axios';
 import Selector from '@/views/Components/Selector.vue';
 
-export default {
-	components: { Selector },
-
-	setup() {
+		const formatDate = (datetime) => {
+      const date = new Date(datetime.replace(" ", "T").split(".")[0]);
+      return date.toISOString().split("T")[0];
+    };
 
 		const planes = ref([]);
 
-		const anios = [2020, 2021, 2022, 2023, 2024];
-		const unidades = ['Unidad 1', 'Unidad 2', 'Unidad 3', 'Unidad 4'];
-		const identificacion_planes = ['Convenios', 'RRHH', 'Fondos Rotatorios'];
-		const planes_disponibles = ['Planta Permanente', 'Ley Marco', '1109', 'Otros'];
+		const ejerciciosDb = ref([]);
+		const unidadesDb = ref([]);
+		const tipoPlanesDb = ref([]);
+		const planesDb = ref([]);
 
 		const anio_seleccionado = ref('');
 		const unidad_seleccionada = ref('');
 		const identificacion_plan_seleccionado = ref('');
 		const plan_seleccionado = ref('');
-		const fecha_ingreso = ref('');
-		const fecha_ult_actualizacion = ref('');
 		const errorMessage = ref('');
 
 		const sendData = () => {
-			axios.post(apiRoutes.enviarCabecera, {
-				anio: anio_seleccionado.value,
-				unidad: unidad_seleccionada.value,
-				identificacion_plan: identificacion_plan_seleccionado.value,
-				nro_plan: plan_seleccionado.value,
-				fecha_ingreso: fecha_ingreso.value,
-				fecha_ult_actualizacion: fecha_ult_actualizacion.value,
+			axios.post(apiRoutes.planes_cabecera_new, {
+				siaf_ejercicios_id: anio_seleccionado.value,
+				siaf_unidades_id: unidad_seleccionada.value,
+				tipo_plan: identificacion_plan_seleccionado.value,
+				plan: plan_seleccionado.value,
 			}, {
 				headers: {
 					Authorization: `Bearer ${localStorage.getItem('auth_token')}`
@@ -240,7 +224,7 @@ export default {
 			})
 			.then(response => {
 				console.log(response.data)
-				planes.value = [...planes.value, ...response.data.data];
+				planes.value = response.data.data;
 				closeModal();
 			})
 			.catch(error => {
@@ -256,13 +240,13 @@ export default {
 		};
 
 		const getData = () => {
-			axios.get(apiRoutes.getPlans, {
+			axios.get(apiRoutes.planes_cabecera_index, {
 				headers: {
 					Authorization: `Bearer ${localStorage.getItem('auth_token')}`
 				},
 			})
 			.then(response => {
-				console.log(response.data.data);
+				console.log("planes " + JSON.stringify(response.data.data));
 				planes.value = response.data.data;
 				
 			})
@@ -272,26 +256,34 @@ export default {
 			});
     };
 
+		const getSelectors = () => {
+			axios.get(apiRoutes.planes_cabecera_selectores, {
+				headers: {
+					Authorization: `Bearer ${localStorage.getItem('auth_token')}`
+				},
+			})
+			.then(response => {
+				console.log(response.data.data);
+				ejerciciosDb.value = response.data.data.ejercicios;
+				unidadesDb.value = response.data.data.unidades;
+				tipoPlanesDb.value = response.data.data.tipo_planes;
+				planesDb.value = response.data.data.planes;
+			})
+			.catch(error => {
+				console.error(error.response?.data?.message);
+				//errorMessage.value = error.response?.data?.message || "An unknown error occurred.";
+			});
+		}
+
 		onMounted(() => {
+			getSelectors();
 			getData();
 		});
 
-		return {
-			planes,
-			sendData,
-			errorMessage,
-			anios,
-			unidades,
-			anio_seleccionado,
-			unidad_seleccionada,
-			identificacion_planes,
-			identificacion_plan_seleccionado,
-			plan_seleccionado,
-			planes_disponibles,
-			fecha_ingreso,
-			fecha_ult_actualizacion,
-		}
-	}
-}
-
 </script>
+
+<style scoped>
+main.formulario-main {
+	padding-top: 0px !important;
+}
+</style>

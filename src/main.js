@@ -12,7 +12,3 @@ app.use(pinia);
 app.use(router);
 
 app.mount('#app');
-
-
-// agregar procesos en url aparte
-// esta contiene modal para partidas presupuestarias

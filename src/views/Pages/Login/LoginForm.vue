@@ -111,7 +111,7 @@ export default {
 				const { token } = response.data;
 				localStorage.setItem('auth_token', token);
 				authStore.login(token);
-				router.push('cabeceras');
+				router.push('dashboard');
 
 			} catch (error) {
 				console.log(error);

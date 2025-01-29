@@ -3,19 +3,19 @@
     <label v-if="label" class="form-label fw-normal" :for="id">{{ label }}</label>
     <div class="custom-select" :id="id">
       <div class="single-select-header form-select" @click="toggleOptions">
-        {{ selected || `Seleccione ${label.toLowerCase()}` }}
+        {{ selectedName || `Seleccione ${label.toLowerCase()}` }}
         <i class="fas fa-chevron-down select-icon"></i>
       </div>
       <div v-if="isOpen" class="single-select-options">
         <div 
           v-for="option in options" 
-          :key="option"
+          :key="option.id"
           class="single-option"
           @click="selectOption(option)"
-          :title="option"
-          :data-value="option"
+          :title="displayValue(option)"
+          :data-value="option.id"
         >
-          {{ option }}
+          {{ displayValue(option) }}
         </div>
       </div>
       <input type="hidden" :name="name" :value="selected">
@@ -24,7 +24,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 
 const emit = defineEmits();
 
@@ -34,19 +34,44 @@ const props = defineProps({
   name: String,
   options: Array,
   modelValue: [String, Number],
+  labelField: {
+    type: String,
+    default: 'name'  // Cambiar a 'name', 'id' o cualquier otro valor dinámico
+  }
 });
 
+watch(
+  () => props.modelValue,
+  (newValue) => {
+    selected.value = newValue;
+    updateSelectedName();  // Actualiza el nombre seleccionado
+  }
+);
+
 const isOpen = ref(false);
-const selected = ref(props.modelValue || ''); 
+const selected = ref(props.modelValue || '');  // ID seleccionado
+const selectedName = ref('');  // Nombre seleccionado
+
+// Función para decidir qué mostrar como el valor de cada opción
+const displayValue = (option) => {
+  return option[props.labelField]; // Usa la propiedad indicada por `labelField`
+};
 
 const toggleOptions = () => {
   isOpen.value = !isOpen.value;
 };
 
 const selectOption = (option) => {
-  selected.value = option;
+  selected.value = option.id;  // Guardar el 'id' seleccionado
+  selectedName.value = option[props.labelField]; // Mostrar el 'name' correspondiente
   isOpen.value = false;
-  emit('update:modelValue', selected.value);
+  emit('update:modelValue', selected.value);  // Emitir el id
+};
+
+// Actualiza el nombre seleccionado basado en el id
+const updateSelectedName = () => {
+  const selectedOption = props.options.find(option => option.id === selected.value);
+  selectedName.value = selectedOption ? selectedOption[props.labelField] : ''; 
 };
 </script>
 
@@ -67,5 +92,5 @@ const selectOption = (option) => {
     border-top: none !important;
     box-shadow: 0px 4px 4px 0px #2897D4 !important;
     font-family: "Montserrat", sans-serif;
-  }
+}
 </style>
