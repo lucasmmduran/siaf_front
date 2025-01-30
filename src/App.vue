@@ -48,11 +48,18 @@
       </section>
     </header>
 
-      <!-- <div v-if="authStore.isAuthenticated">
-        <Menu></Menu>
-      </div> -->
-    <div class="tw-flex-1" :class="(authStore.isAuthenticated) ? 'tw-pt-28' : ''">
-      <router-view />
+    <div class="tw-flex-1" :class="(authStore.isAuthenticated) ? 'tw-pt-20' : ''">
+      <div v-if="authStore.isAuthenticated && !isDashboardRoute" class="row" >
+        <Menu 
+          class="col-1 d-flex justify-content-center pt-3 pe-0 tw-z-10">
+        </Menu>
+        <Breadcrumb 
+          class="col-11 ps-0"
+          ></Breadcrumb>
+      </div>
+      <div class="row">
+        <router-view />
+      </div>
     </div>
     
     <footer class="tw-relative tw-bottom-0 tw-left-0 tw-w-full tw-bg-gray-800 tw-text-white tw-z-50 tw-mt-28">
@@ -75,51 +82,42 @@
   </div>
 </template>
 
-<script>
-import { ref, onMounted, onBeforeUnmount } from 'vue';
+<script setup>
+import { ref, onMounted, onBeforeUnmount, computed } from 'vue';
 import { useAuthStore } from '@/stores/auth';
-import { useRouter } from 'vue-router';
+import { useRouter, useRoute } from 'vue-router';
 import Menu from "@/views/Layouts/Menu.vue";
+import Breadcrumb from "@/views/Layouts/Breadcrumb.vue";
 
-export default {
+  const authStore = useAuthStore();
+  const router = useRouter();
+  const route = useRoute();
+  const isDropdownOpen = ref(false);
 
-  components: { Menu }, 
+  const isDashboardRoute = computed(() => route.path === '/dashboard');
 
-  setup() {
-    const authStore = useAuthStore();
-		const router = useRouter();
-    const isDropdownOpen = ref(false);
+  authStore.checkAuth();
 
-    authStore.checkAuth();
+  const handleLogout = () => {
+    authStore.logout();
+    router.push({ name: 'Login' });
+  };
 
-    const handleLogout = () => {
-      authStore.logout();
-      router.push({ name: 'Login' });
-    };
+  const toggleDropdown = (event) => {
+    event.stopPropagation(); 
+    isDropdownOpen.value = !isDropdownOpen.value;
+  };
 
-    const toggleDropdown = (event) => {
-      event.stopPropagation(); 
-      isDropdownOpen.value = !isDropdownOpen.value;
-    };
+  const closeDropdown = (event) => {
+    isDropdownOpen.value = false;
+  };
 
-    const closeDropdown = (event) => {
-      isDropdownOpen.value = false;
-    };
+  onMounted(() => {
+    document.addEventListener('click', closeDropdown);
+  });
 
-    onMounted(() => {
-      document.addEventListener('click', closeDropdown);
-    });
+  onBeforeUnmount(() => {
+    document.removeEventListener('click', closeDropdown);
+  });
 
-    onBeforeUnmount(() => {
-      document.removeEventListener('click', closeDropdown);
-    });
-
-    return { 
-      authStore,
-      handleLogout,
-      toggleDropdown,
-      isDropdownOpen,
-    };
-  },
-};
 </script>
