@@ -223,7 +223,7 @@ import Selector from '@/views/Components/Selector.vue';
 				},
 			})
 			.then(response => {
-				console.log(response.data)
+				//console.log(response.data)
 				planes.value = response.data.data;
 				closeModal();
 			})
@@ -246,7 +246,7 @@ import Selector from '@/views/Components/Selector.vue';
 				},
 			})
 			.then(response => {
-				console.log("planes " + JSON.stringify(response.data.data));
+				//console.log("planes " + JSON.stringify(response.data.data));
 				planes.value = response.data.data;
 				
 			})
@@ -263,7 +263,7 @@ import Selector from '@/views/Components/Selector.vue';
 				},
 			})
 			.then(response => {
-				console.log(response.data.data);
+				//console.log(response.data.data);
 				ejerciciosDb.value = response.data.data.ejercicios;
 				unidadesDb.value = response.data.data.unidades;
 				tipoPlanesDb.value = response.data.data.tipo_planes;
