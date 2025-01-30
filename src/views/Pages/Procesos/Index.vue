@@ -4,7 +4,7 @@
 		<PlanHeader :planId="planId"></PlanHeader>
 
 
-<section class="formulario-planificacion tw-mt-28">
+<section class="formulario-planificacion">
 		<div class="container">
 				<div class="row">
 					<div v-if="errorMessage" class="col-12">

@@ -1,5 +1,5 @@
 <template>
-	<form id="formPlanificacion" action="" class="mb-3 tw-mt-28">
+	<form id="formPlanificacion" action="" class="mb-3">
 		
 		<PlanHeader :planId="planId"></PlanHeader>
 

@@ -1,5 +1,5 @@
 <template>
-	<section class="header-planificacion tw-pt-10">
+	<section class="header-planificacion">
 				<div class="container">
 					<div class="row">
 						<div class="col-6">
