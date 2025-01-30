@@ -1,0 +1,81 @@
+
+/* ESTILOS CARDS */
+.dashboard-card a {
+    color: #333333;
+}
+.dashboard-card h5 {
+    font-weight: 700;
+    padding: 0.5rem;
+}
+.dashboard-card.card .card-footer{
+    height: 10px;
+}
+
+.dashboard-card.card {
+    background-color: #242C4F;
+    border: none;
+}
+.dashboard-card.card:hover {
+    background-color: #14182C;
+}
+
+.dashboard-card.card .card-header {
+    height: 112px;
+}
+
+.dashboard-card.card .card-body {
+    background-color: #FFFFFF;
+    height: 70px;
+    padding: 0px;
+}
+
+.dashboard-card.card .btn-title {
+    min-width: 100%;
+    border: none;
+    background-color: #FFFFFF;
+    font-family: "Lora", serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: #333333;
+    padding: 0.5rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.dashboard-card.card.indexup {
+    z-index: 15; /* Elevar la tarjeta */
+}
+
+.dashboard-card.card .dropdown-menu {
+    width: 100% !important;
+    border: none !important;
+    border-bottom: 6px solid #14182C !important;
+    padding: 0px;
+    position: absolute;
+    z-index: 20; /* Asegurarse de que el menú esté por encima */
+}
+
+.dashboard-card.card .dropdown-menu li {
+    border-top: 1px dashed #D6D6D6;
+}
+
+.dashboard-card.card .dropdown-menu li:hover {
+    background-color: #F2F2F2;
+}
+
+.dashboard-card.card .dropdown-menu a:active {
+    background-color: #F2F2F2;
+    color: #333333;
+}
+
+.dashboard-card.card .dropdown-menu li a {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+}
+/* FIN ESTILOS CARDS */
