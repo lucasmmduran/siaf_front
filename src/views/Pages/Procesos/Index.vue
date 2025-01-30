@@ -101,8 +101,9 @@ import PlanHeader from '@/views/Pages/Procesos/PlanHeader.vue';
 		const procesos = ref([]);
 		const errorMessage = ref('');
 
-		const getData = () => {
-			axios.get(apiRoutes.planes_procesos_index, {
+		const getData = (planId) => {
+			const url = apiRoutes.planes_cabecera_edit.replace('{id}', planId);
+			axios.get(url, {
 				headers: {
 					Authorization: `Bearer ${localStorage.getItem('auth_token')}`
 				},
@@ -119,7 +120,7 @@ import PlanHeader from '@/views/Pages/Procesos/PlanHeader.vue';
     };
 
 		onMounted(() => {
-			getData();
+			getData(planId);
 		});
 
 
